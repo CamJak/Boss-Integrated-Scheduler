@@ -1,11 +1,15 @@
 # classes for data collection
 
-class classData:
-    def __init__(self, profName, days, times, callNumber):
-        self.profName = profName
-        self.days = days
-        self.times = times
+class sectionData:
+    def __init__(self, sectionTitle, callNumber, status, activity, modality, daysTimeLocation, instructor, creditHours):
+        self.sectionTitle = sectionTitle
         self.callNumber = callNumber
+        self.status = status
+        self.activity = activity
+        self.modality = modality
+        self.daysTimeLocation = daysTimeLocation
+        self.instructor = instructor
+        self.creditHours = creditHours
 
 ## Test for use of data structure
 # all_data = {}
