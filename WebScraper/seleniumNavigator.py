@@ -1,10 +1,8 @@
-from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-#from pandas import DataFrame
-import json
 import scrapeFunctions as scrape
-from classes import sectionData
+import json
+import sys
 
 # set up chrome webdriver
 options = Options()
@@ -13,7 +11,7 @@ driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(0.1)
 
 # set debug variable
-DEBUG = True
+DEBUG = False
 
 # set url for main page
 main_url = "https://boss.latech.edu/ia-bin/tsrvweb.cgi?&WID=W&tserve_tip_write=||WID&ConfigName=rcrssecthp1&ReqNum=1&TransactionSource=H&tserve_trans_config=rcrssecthp1.cfg&tserve_host_code=HostZero&tserve_tiphost_code=TipZero"
@@ -47,9 +45,7 @@ for subject in all_subjects:
         driver.find_element('xpath', xpath).click()
         driver.find_element('xpath', "//input[ @type='submit' ]").click()
         # grab classes from course using scrape
-        #!TODO make this not a fake append
-        current_class = scrape.get_class_data(driver.page_source)
-        current_course.append(current_class)
+        current_course = scrape.get_section_data(driver.page_source)
         # go back a tab
         driver.find_element('xpath', "//a[contains(text(), 'Select Another Course')]").click()
         # add new course to current subject
@@ -62,4 +58,5 @@ for subject in all_subjects:
 
 # output as json
 json_out = json.dumps(all_data, indent=2)
-print(json_out)
+with open('output.json', 'w') as sys.stdout:
+    print(json_out)

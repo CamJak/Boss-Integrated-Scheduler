@@ -44,7 +44,6 @@ for course in current_courses:
     driver.find_element('xpath', xpath).click()
     driver.find_element('xpath', "//input[ @type='submit' ]").click()
     # grab classes from course using scrape
-    #!TODO make this not a fake append
     current_course = scrape.get_section_data(driver.page_source)
     # go back a tab
     driver.find_element('xpath', "//a[contains(text(), 'Select Another Course')]").click()
