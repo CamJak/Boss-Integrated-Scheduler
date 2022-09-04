@@ -22,8 +22,17 @@ def get_section_data(source):
             td_tags = row.find_all("td")
             td_list = []
             for tag in td_tags:
-                td_list.append(re.sub(r'\xa0', '', tag.getText()))
-            new_section = sectionData(td_list[0], td_list[1], td_list[2], td_list[3], td_list[4], td_list[5], td_list[6], td_list[8])
+                td_list.append(re.sub('\xa0', '', tag.getText()))
+            new_section = sectionData(
+                re.sub(r'\n[\s]*', ' ', td_list[0]), 
+                td_list[1], 
+                td_list[2], 
+                td_list[3], 
+                td_list[4], 
+                re.sub(r'\n[\s]*', ' ', td_list[5]), 
+                re.sub('WWW', '', td_list[6]), 
+                td_list[8]
+                )
             data_list.append(vars(new_section))
         count += 1
 
