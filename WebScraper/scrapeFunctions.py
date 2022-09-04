@@ -18,7 +18,7 @@ def get_section_data(source):
     soup = BeautifulSoup(source, 'html.parser')
     table = soup.find_all("tr")
     for row in table[1:]:
-        if ((count > 3) and ((count - 1)%3 == 0)):
+        if ((count > 3) and (len(row.find_all("td")) > 3)):
             td_tags = row.find_all("td")
             td_list = []
             for tag in td_tags:
