@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.options import Options
 import scrapeFunctions as scrape
 import json
 import sys
+import time
 
 # set up chrome webdriver
 options = Options()
@@ -20,6 +21,9 @@ driver.find_element('xpath', "//input[ @type='submit' ]").click()
 
 # create object to store collected data
 all_data = {}
+
+# get start time
+start_time = time.perf_counter()
 
 # grab list of all subjects
 all_subjects = scrape.pull_options_list(driver.page_source, "Subject")
@@ -55,6 +59,10 @@ for subject in all_subjects:
     # go back to main tab
     driver.get(main_url)
     driver.find_element('xpath', "//input[ @type='submit' ]").click()
+
+# get time elapsed and print
+elapsed_time = (time.perf_counter() - start_time)
+print(f"Time elapsed(s): {elapsed_time}")
 
 # output as json
 json_out = json.dumps(all_data, indent=2)
