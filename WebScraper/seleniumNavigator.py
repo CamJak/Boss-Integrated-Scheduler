@@ -1,4 +1,7 @@
+## Main scraper for the boss integrated scheduler ##
+
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 import scrapeFunctions as scrape
 import json
@@ -8,7 +11,7 @@ import time
 # set up chrome webdriver
 options = Options()
 options.add_argument("--headless")
-driver = webdriver.Chrome(options=options)
+driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 driver.implicitly_wait(0.1)
 
 # set debug variable
@@ -62,18 +65,16 @@ try:
         driver.get(main_url)
         driver.find_element('xpath', "//input[ @type='submit' ]").click()
 except:
+    print("An exception occured!")
+else:
+    print("Finished Successfully!")
+finally:
+    if DEBUG:
+        print("------End Scrape!------")
+    # get time elapsed and print
     elapsed_time = (time.perf_counter() - start_time)
     print(f"Time elapsed(s): {elapsed_time}")
-    print("An exception occured!")
+    # output as json
     json_out = json.dumps(all_data, indent=2)
-    print(json_out)
-
-# get time elapsed and print
-elapsed_time = (time.perf_counter() - start_time)
-print("Finished Successfully!")
-print(f"Time elapsed(s): {elapsed_time}")
-
-# output as json
-json_out = json.dumps(all_data, indent=2)
-with open('output.json', 'w') as sys.stdout:
-    print(json_out)
+    with open('output.json', 'w') as sys.stdout:
+        print(json_out)

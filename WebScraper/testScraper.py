@@ -1,3 +1,5 @@
+## Shortened scraper for purely testing purposes, can be removed or relocated later ##
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import scrapeFunctions as scrape

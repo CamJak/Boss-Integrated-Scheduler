@@ -1,4 +1,4 @@
-# classes for data collection
+## Class for data collection ##
 
 class sectionData:
     def __init__(self, sectionTitle, callNumber, status, activity, modality, daysTimeLocation, instructor, creditHours):

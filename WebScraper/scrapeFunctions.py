@@ -1,3 +1,5 @@
+## Functions needed for scraping process ##
+
 from bs4 import BeautifulSoup
 from classes import sectionData
 import re

@@ -1,1 +1,638 @@
-{}
+{
+  "Accounting": {
+    "ACCT-201 PRINC OF FINANCIAL ACCOUNTING": [
+      {
+        "sectionTitle": "ACCT-201 -V84 PRINC OF FINANCIAL ACCOUNTING",
+        "callNumber": "10001",
+        "status": "Closed",
+        "activity": "",
+        "modality": "Asynchronous Online",
+        "daysTimeLocation": " Main Campus",
+        "instructor": "SHAVER C",
+        "creditHours": " 3.00"
+      },
+      {
+        "sectionTitle": "ACCT-201 -001 PRINC OF FINANCIAL ACCOUNTING",
+        "callNumber": "10002",
+        "status": "Closed",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "TR12:00-01:50PM Main CampusCollege of Business Building221",
+        "instructor": "MARTIN C",
+        "creditHours": " 3.00"
+      },
+      {
+        "sectionTitle": "ACCT-201 -051 PRINC OF FINANCIAL ACCOUNTING",
+        "callNumber": "10003",
+        "status": "Open -  30 of  60",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "MW06:00-07:50PM Main CampusCollege of Business Building126",
+        "instructor": "BURKHOLDER S",
+        "creditHours": " 3.00"
+      },
+      {
+        "sectionTitle": "ACCT-201 -052 PRINC OF FINANCIAL ACCOUNTING",
+        "callNumber": "10004",
+        "status": "Open -   3 of  60",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "TR06:00-07:50PM Main CampusCollege of Business Building126",
+        "instructor": "PARKER B",
+        "creditHours": " 3.00"
+      },
+      {
+        "sectionTitle": "ACCT-201 -053 PRINC OF FINANCIAL ACCOUNTING",
+        "callNumber": "12578",
+        "status": "Open -  30 of  70",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "TR04:00-05:50PM Main CampusCollege of Business Building126",
+        "instructor": "HUNT E",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-202 PRINC OF MANAGERIAL ACCOUNTING": [
+      {
+        "sectionTitle": "ACCT-202 -001 PRINC OF MANAGERIAL ACCOUNTING",
+        "callNumber": "10006",
+        "status": "Open -  15 of  55",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "TR10:00-11:50AM Main CampusCollege of Business Building221",
+        "instructor": "COLLUM N",
+        "creditHours": " 3.00"
+      },
+      {
+        "sectionTitle": "ACCT-202 -002 PRINC OF MANAGERIAL ACCOUNTING",
+        "callNumber": "12579",
+        "status": "Open -  27 of  70",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "MWF12:30-01:45PM Main CampusCollege of Business Building126",
+        "instructor": "PARAJULI J",
+        "creditHours": " 3.00"
+      },
+      {
+        "sectionTitle": "ACCT-202 -003 PRINC OF MANAGERIAL ACCOUNTING",
+        "callNumber": "10007",
+        "status": "Closed",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "TR08:00-09:50AM Main CampusCollege of Business Building121",
+        "instructor": "LOPEZ P",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-303 INTERMEDIATE ACCOUNTING": [
+      {
+        "sectionTitle": "ACCT-303 -001 INTERMEDIATE ACCOUNTING",
+        "callNumber": "10009",
+        "status": "Open -   2 of  50",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "TR02:00-03:50PM Main CampusCollege of Business Building221",
+        "instructor": "LOPEZ P",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-304 INTERMEDIATE ACCOUNTING": [
+      {
+        "sectionTitle": "ACCT-304 -001 INTERMEDIATE ACCOUNTING",
+        "callNumber": "10011",
+        "status": "Open -   3 of  38",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "MW02:00-03:50PM Main CampusCollege of Business Building107",
+        "instructor": "HERDA D",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-307 INCOME TAX": [
+      {
+        "sectionTitle": "ACCT-307 -001 INCOME TAX",
+        "callNumber": "10012",
+        "status": "Closed",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "TR12:00-01:50PM Main CampusCollege of Business Building111",
+        "instructor": "COLLUM N",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-308 MANAGERIAL COST ACCOUNTING": [
+      {
+        "sectionTitle": "ACCT-308 -001 MANAGERIAL COST ACCOUNTING",
+        "callNumber": "10013",
+        "status": "Open -  15 of  55",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "TR10:00-11:50AM Main CampusCollege of Business Building111",
+        "instructor": "DRAKE A",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-401 INTERNSHIP IN ACCOUNTING I": [
+      {
+        "sectionTitle": "ACCT-401 -001 INTERNSHIP IN ACCOUNTING I",
+        "callNumber": "10014",
+        "status": "Open -  10 of  10",
+        "activity": "Practicum",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main Campus",
+        "instructor": "DRAKE A",
+        "creditHours": " 3.00"
+      },
+      {
+        "sectionTitle": "ACCT-401 -099 INTERNSHIP IN ACCOUNTING I",
+        "callNumber": "10015",
+        "status": "Open -   9 of  10",
+        "activity": "Practicum",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main Campus",
+        "instructor": "DRAKE A",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-402 INTERNSHIP IN ACCOUNTING II": [
+      {
+        "sectionTitle": "ACCT-402 -001 INTERNSHIP IN ACCOUNTING II",
+        "callNumber": "10016",
+        "status": "Open -  10 of  10",
+        "activity": "Practicum",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main Campus",
+        "instructor": "DRAKE A",
+        "creditHours": " 3.00"
+      },
+      {
+        "sectionTitle": "ACCT-402 -099 INTERNSHIP IN ACCOUNTING II",
+        "callNumber": "10017",
+        "status": "Open -  10 of  10",
+        "activity": "Practicum",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main Campus",
+        "instructor": "DRAKE A",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-414 ADVANCED ACCOUNTING": [
+      {
+        "sectionTitle": "ACCT-414 -051 ADVANCED ACCOUNTING",
+        "callNumber": "10018",
+        "status": "Open -  13 of  25",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "TR04:00-05:50PM Main CampusCollege of Business Building111",
+        "instructor": "LUEHLFING MXLS ACCT514",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-425 FRAUD DETECTION AND PREVENTION": [
+      {
+        "sectionTitle": "ACCT-425 -001 FRAUD DETECTION AND PREVENTION",
+        "callNumber": "12550",
+        "status": "Closed",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "TR02:00-03:50PM Main CampusCollege of Business Building111",
+        "instructor": "LAUCK JXLS ACCT525",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-494 FOUNDATIONS IN ACCOUNTING": [
+      {
+        "sectionTitle": "ACCT-494 -V84 FOUNDATIONS IN ACCOUNTING",
+        "callNumber": "10019",
+        "status": "Open -  87 of  90",
+        "activity": "Independent Study",
+        "modality": "Synchronous Online",
+        "daysTimeLocation": "To Be Arranged Main Campus",
+        "instructor": "DRAKE AXLS ACCT494-097",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-505 ACCT ANALYSIS DECISION MAKING": [
+      {
+        "sectionTitle": "ACCT-505 -V84 ACCT ANALYSIS DECISION MAKING",
+        "callNumber": "10020",
+        "status": "Open -   2 of  32",
+        "activity": "",
+        "modality": "Asynchronous Online",
+        "daysTimeLocation": " Main Campus",
+        "instructor": "WYNN J",
+        "creditHours": " 3.00"
+      },
+      {
+        "sectionTitle": "ACCT-505 -001 ACCT ANALYSIS DECISION MAKING",
+        "callNumber": "10021",
+        "status": "Closed",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "TR10:00-11:50AM Main CampusCollege of Business Building121",
+        "instructor": "WYNN J",
+        "creditHours": " 3.00"
+      },
+      {
+        "sectionTitle": "ACCT-505 -084 ACCT ANALYSIS DECISION MAKING",
+        "callNumber": "10022",
+        "status": "Open -   2 of  30",
+        "activity": "",
+        "modality": "Asynchronous Online",
+        "daysTimeLocation": " Main Campus",
+        "instructor": "WYNN J",
+        "creditHours": " 3.00"
+      },
+      {
+        "sectionTitle": "ACCT-505 -184 ACCT ANALYSIS DECISION MAKING",
+        "callNumber": "10023",
+        "status": "Open -  14 of  30",
+        "activity": "",
+        "modality": "Asynchronous Online",
+        "daysTimeLocation": " Main Campus",
+        "instructor": "WYNN J",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-508 ADVANCED MANAGERIAL ACCOUNTING": [
+      {
+        "sectionTitle": "ACCT-508 -001 ADVANCED MANAGERIAL ACCOUNTING",
+        "callNumber": "10024",
+        "status": "Open -  10 of  40",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "MW04:00-05:50PM Main CampusCollege of Business Building105",
+        "instructor": "HUNT JXLS ACCT608",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-514 ADVANCED ACCOUNTING": [
+      {
+        "sectionTitle": "ACCT-514 -051 ADVANCED ACCOUNTING",
+        "callNumber": "10025",
+        "status": "Open -  24 of  34",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "TR04:00-05:50PM Main CampusCollege of Business Building111",
+        "instructor": "LUEHLFING MXLS ACCT414",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-525 FRAUD DETECTION AND PREVENTION": [
+      {
+        "sectionTitle": "ACCT-525 -001 FRAUD DETECTION AND PREVENTION",
+        "callNumber": "12551",
+        "status": "Closed",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "TR02:00-03:50PM Main CampusCollege of Business Building111",
+        "instructor": "LAUCK JXLS ACCT425",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-550C DIRECTED STUDY IN ACCOUNTING": [
+      {
+        "sectionTitle": "ACCT-550C-001 DIRECTED STUDY IN ACCOUNTING",
+        "callNumber": "10026",
+        "status": "Open -   5 of   5",
+        "activity": "Research",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main Campus",
+        "instructor": "DRAKE A",
+        "creditHours": " 3.00"
+      },
+      {
+        "sectionTitle": "ACCT-550C-002 DIRECTED STUDY IN ACCOUNTING     - INTERNSHIP IN ACCOUNTING",
+        "callNumber": "10027",
+        "status": "Open",
+        "activity": "Research",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main Campus",
+        "instructor": "DRAKE A",
+        "creditHours": " 3.00"
+      },
+      {
+        "sectionTitle": "ACCT-550C-099 DIRECTED STUDY IN ACCOUNTING     - INTERNSHIP IN ACCOUNTING",
+        "callNumber": "10028",
+        "status": "Open -   4 of   5",
+        "activity": "Research",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main Campus",
+        "instructor": "DRAKE A",
+        "creditHours": " 3.00"
+      }
+    ],
+    "ACCT-608 ADVANCED MANAGERIAL ACCOUNTING": [
+      {
+        "sectionTitle": "ACCT-608 -001 ADVANCED MANAGERIAL ACCOUNTING",
+        "callNumber": "10029",
+        "status": "Open -   5 of   5",
+        "activity": "Seminar",
+        "modality": "Face to face",
+        "daysTimeLocation": "MW04:00-05:50PM Main CampusCollege of Business Building105",
+        "instructor": "HUNT JXLS ACCT508",
+        "creditHours": " 3.00"
+      }
+    ]
+  },
+  "Agricultural Business": {
+    "AGBU-220 PRINCIPLES OF AGRI ECONOMICS": [
+      {
+        "sectionTitle": "AGBU-220 -001 PRINCIPLES OF AGRI ECONOMICS",
+        "callNumber": "10046",
+        "status": "Open -  35 of  75",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "MWF09:30-10:45AM Main CampusLomax Hall7",
+        "instructor": "HOLDERIEATH J",
+        "creditHours": " 3.00"
+      }
+    ],
+    "AGBU-425A SPEC PROBLEMS IN AGRI BUSINESS": [
+      {
+        "sectionTitle": "AGBU-425A-001 SPEC PROBLEMS IN AGRI BUSINESS",
+        "callNumber": "10047",
+        "status": "Open",
+        "activity": "Research",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main Campus",
+        "instructor": "HOLDERIEATH J",
+        "creditHours": " 1.00"
+      }
+    ],
+    "AGBU-425B SPEC PROBLEMS IN AGRI BUSINESS": [
+      {
+        "sectionTitle": "AGBU-425B-001 SPEC PROBLEMS IN AGRI BUSINESS",
+        "callNumber": "10048",
+        "status": "Open -   2 of   2",
+        "activity": "Research",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main CampusReese Hall209",
+        "instructor": "HOLDERIEATH J",
+        "creditHours": " 2.00"
+      }
+    ],
+    "AGBU-425C SPEC PROBLEMS IN AGRI BUSINESS": [
+      {
+        "sectionTitle": "AGBU-425C-001 SPEC PROBLEMS IN AGRI BUSINESS",
+        "callNumber": "10049",
+        "status": "Open -   2 of   2",
+        "activity": "Research",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main CampusReese Hall209",
+        "instructor": "HOLDERIEATH J",
+        "creditHours": " 3.00"
+      }
+    ],
+    "AGBU-450 NATURAL RESOURCE ECONOMICS": [
+      {
+        "sectionTitle": "AGBU-450 -001 NATURAL RESOURCE ECONOMICS",
+        "callNumber": "10050",
+        "status": "Open -  10 of  30",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "MWF12:30-01:45PM Main CampusReese Hall206",
+        "instructor": "HOLDERIEATH J",
+        "creditHours": " 3.00"
+      }
+    ]
+  },
+  "Agricultural Science": {
+    "AGSC-411 SEMINAR": [
+      {
+        "sectionTitle": "AGSC-411 -001 SEMINAR",
+        "callNumber": "10053",
+        "status": "Open -   7 of  20",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "TR12:00-01:15PM Main CampusReese Hall206",
+        "instructor": "MURPHEY M",
+        "creditHours": " 1.00"
+      }
+    ],
+    "AGSC-478C COOP EDUCATION WORK EXPERIENCE": [
+      {
+        "sectionTitle": "AGSC-478C-001 COOP EDUCATION WORK EXPERIENCE",
+        "callNumber": "10054",
+        "status": "Open -   5 of   5",
+        "activity": "Practicum",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main CampusReese Hall111",
+        "instructor": "MCCONNICO R",
+        "creditHours": " 3.00"
+      },
+      {
+        "sectionTitle": "AGSC-478C-098 COOP EDUCATION WORK EXPERIENCE",
+        "callNumber": "10055",
+        "status": "Open -   1 of   1",
+        "activity": "Practicum",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main CampusReese Hall111",
+        "instructor": "MCCONNICO R",
+        "creditHours": " 3.00"
+      }
+    ],
+    "AGSC-478F COOP EDUCATION WORK EXPERIENCE": [
+      {
+        "sectionTitle": "AGSC-478F-098 COOP EDUCATION WORK EXPERIENCE",
+        "callNumber": "10056",
+        "status": "Open",
+        "activity": "Practicum",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main CampusReese Hall111",
+        "instructor": "MCCONNICO R",
+        "creditHours": " 6.00"
+      }
+    ],
+    "AGSC-478I COOP EDUCATION WORK EXPERIENCE": [
+      {
+        "sectionTitle": "AGSC-478I-098 COOP EDUCATION WORK EXPERIENCE",
+        "callNumber": "10057",
+        "status": "Open -   5 of   5",
+        "activity": "Practicum",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main CampusReese Hall111",
+        "instructor": "MCCONNICO R",
+        "creditHours": " 9.00"
+      }
+    ]
+  },
+  "Air Force Aerospace Studies": {
+    "AFAS-125 US AIR FORCE HERITAGE & VALUES I": [
+      {
+        "sectionTitle": "AFAS-125 -001 US AIR FORCE HERITAGE & VALUES I",
+        "callNumber": "10030",
+        "status": "Open -  13 of  50",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "F11:00-12:15PM Main CampusWyly Tower of LearningAUD",
+        "instructor": "SPRYS J",
+        "creditHours": " 1.00"
+      },
+      {
+        "sectionTitle": "AFAS-125 -002 US AIR FORCE HERITAGE & VALUES I",
+        "callNumber": "10031",
+        "status": "Open -  50 of  50",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main CampusWyly Tower of Learning1411",
+        "instructor": "STAFF T",
+        "creditHours": " 1.00"
+      }
+    ],
+    "AFAS-155 AFROTC LEADERSHIP LAB": [
+      {
+        "sectionTitle": "AFAS-155 -001 AFROTC LEADERSHIP LAB",
+        "callNumber": "10032",
+        "status": "Open -  18 of  50",
+        "activity": "Laboratory",
+        "modality": "Face to face",
+        "daysTimeLocation": "T03:00-05:00PM Main CampusWyly Tower of Learning1411",
+        "instructor": "FIELD J",
+        "creditHours": " 0.00"
+      },
+      {
+        "sectionTitle": "AFAS-155 -002 AFROTC LEADERSHIP LAB",
+        "callNumber": "10033",
+        "status": "Open -  49 of  50",
+        "activity": "Laboratory",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main CampusWyly Tower of Learning1411",
+        "instructor": "FIELD J",
+        "creditHours": " 0.00"
+      }
+    ],
+    "AFAS-225 USAF TEAM & LEADERSHIP FUND I": [
+      {
+        "sectionTitle": "AFAS-225 -001 USAF TEAM & LEADERSHIP FUND I",
+        "callNumber": "10034",
+        "status": "Open -  43 of  50",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "T08:00-09:15AM Main CampusWyly Tower of Learning1423",
+        "instructor": "FIELD J",
+        "creditHours": " 1.00"
+      },
+      {
+        "sectionTitle": "AFAS-225 -002 USAF TEAM & LEADERSHIP FUND I",
+        "callNumber": "10035",
+        "status": "Open -  50 of  50",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main CampusWyly Tower of Learning1423",
+        "instructor": "FIELD J",
+        "creditHours": " 1.00"
+      }
+    ],
+    "AFAS-255 AFROTC LEADERSHIP LAB": [
+      {
+        "sectionTitle": "AFAS-255 -001 AFROTC LEADERSHIP LAB",
+        "callNumber": "10036",
+        "status": "Open -  43 of  50",
+        "activity": "Laboratory",
+        "modality": "Face to face",
+        "daysTimeLocation": "T03:00-05:00PM Main CampusWyly Tower of Learning1411",
+        "instructor": "FIELD J",
+        "creditHours": " 0.00"
+      },
+      {
+        "sectionTitle": "AFAS-255 -002 AFROTC LEADERSHIP LAB",
+        "callNumber": "10037",
+        "status": "Open -  50 of  50",
+        "activity": "Laboratory",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main CampusWyly Tower of Learning1411",
+        "instructor": "FIELD J",
+        "creditHours": " 0.00"
+      }
+    ],
+    "AFAS-331 LEADING PEOPLE&EFFECTIVE COMM I": [
+      {
+        "sectionTitle": "AFAS-331 -001 LEADING PEOPLE&EFFECTIVE COMM I",
+        "callNumber": "10038",
+        "status": "Cancelled",
+        "activity": "LEC",
+        "modality": "Face to face",
+        "daysTimeLocation": "CANCELLED Main Campus",
+        "instructor": "",
+        "creditHours": " 2.00"
+      },
+      {
+        "sectionTitle": "AFAS-331 -002 LEADING PEOPLE&EFFECTIVE COMM I",
+        "callNumber": "10039",
+        "status": "Open -  25 of  30",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "F01:00-03:30PM Main CampusWyly Tower of Learning1411",
+        "instructor": "FIELD J",
+        "creditHours": " 2.00"
+      }
+    ],
+    "AFAS-351 AFROTC LEADERSHIP LAB": [
+      {
+        "sectionTitle": "AFAS-351 -001 AFROTC LEADERSHIP LAB",
+        "callNumber": "10040",
+        "status": "Open -  25 of  30",
+        "activity": "Laboratory",
+        "modality": "Face to face",
+        "daysTimeLocation": "T03:00-05:00PM Main CampusWyly Tower of Learning1411",
+        "instructor": "FIELD J",
+        "creditHours": " 0.00"
+      },
+      {
+        "sectionTitle": "AFAS-351 -002 AFROTC LEADERSHIP LAB",
+        "callNumber": "10041",
+        "status": "Open -  30 of  30",
+        "activity": "Laboratory",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main CampusWyly Tower of Learning1411",
+        "instructor": "FIELD J",
+        "creditHours": " 0.00"
+      }
+    ],
+    "AFAS-431 NATL SECURITY&LEADRSHP RESP I": [
+      {
+        "sectionTitle": "AFAS-431 -001 NATL SECURITY&LEADRSHP RESP I",
+        "callNumber": "10042",
+        "status": "Open -  23 of  30",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "M02:00-04:30PM Main CampusWyly Tower of Learning1423",
+        "instructor": "SPRYS J",
+        "creditHours": " 2.00"
+      },
+      {
+        "sectionTitle": "AFAS-431 -002 NATL SECURITY&LEADRSHP RESP I",
+        "callNumber": "10043",
+        "status": "Open -  30 of  30",
+        "activity": "Lecture",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main CampusWyly Tower of Learning1423",
+        "instructor": "STAFF T",
+        "creditHours": " 2.00"
+      }
+    ],
+    "AFAS-451 AFROTC LEADERSHIP LAB": [
+      {
+        "sectionTitle": "AFAS-451 -001 AFROTC LEADERSHIP LAB",
+        "callNumber": "10044",
+        "status": "Open -  22 of  30",
+        "activity": "Laboratory",
+        "modality": "Face to face",
+        "daysTimeLocation": "T03:00-05:00PM Main CampusWyly Tower of Learning1411",
+        "instructor": "FIELD J",
+        "creditHours": " 0.00"
+      },
+      {
+        "sectionTitle": "AFAS-451 -002 AFROTC LEADERSHIP LAB",
+        "callNumber": "10045",
+        "status": "Open -  30 of  30",
+        "activity": "Laboratory",
+        "modality": "Face to face",
+        "daysTimeLocation": "To Be Arranged Main CampusWyly Tower of Learning1411",
+        "instructor": "FIELD J",
+        "creditHours": " 0.00"
+      }
+    ]
+  }
+}
