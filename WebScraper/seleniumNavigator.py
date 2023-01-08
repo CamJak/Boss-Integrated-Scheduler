@@ -64,8 +64,9 @@ try:
         # go back to main tab
         driver.get(main_url)
         driver.find_element('xpath', "//input[ @type='submit' ]").click()
-except:
+except Exception as e:
     print("An exception occured!")
+    print(e)
 else:
     print("Finished Successfully!")
 finally:

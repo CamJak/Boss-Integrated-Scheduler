@@ -3,6 +3,7 @@
 from bs4 import BeautifulSoup
 from classes import sectionData
 import re
+from dataclasses import asdict
 
 # Grabs the list of options from a select element in HTML
 def pull_options_list(source, name):
@@ -35,7 +36,7 @@ def get_section_data(source):
                 re.sub('WWW', '', td_list[6]), 
                 td_list[8]
                 )
-            data_list.append(vars(new_section))
+            data_list.append(asdict(new_section))
         count += 1
 
     return data_list

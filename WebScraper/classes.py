@@ -1,15 +1,16 @@
-## Class for data collection ##
+from dataclasses import dataclass
 
+## Class for data collection ##
+@dataclass(slots=True)
 class sectionData:
-    def __init__(self, sectionTitle, callNumber, status, activity, modality, daysTimeLocation, instructor, creditHours):
-        self.sectionTitle = sectionTitle
-        self.callNumber = callNumber
-        self.status = status
-        self.activity = activity
-        self.modality = modality
-        self.daysTimeLocation = daysTimeLocation
-        self.instructor = instructor
-        self.creditHours = creditHours
+    sectionTitle: str
+    callNumber: str
+    status: str
+    activity: str
+    modality: str
+    daysTimeLocation: str
+    instructor: str
+    creditHours: str
 
 ## Test for use of data structure
 # all_data = {}
