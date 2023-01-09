@@ -1,7 +1,7 @@
 ## Functions needed for scraping process ##
 
 from bs4 import BeautifulSoup
-from classes import sectionData
+from models import sectionData
 import re
 from dataclasses import asdict
 
