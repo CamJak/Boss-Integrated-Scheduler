@@ -4,3 +4,7 @@
 
 # ignore scraper output (should be stored in DB)
 *\output.json
+
+
+# ignore environment variables for API
+API/.env
