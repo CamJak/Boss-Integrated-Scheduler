@@ -1,4 +1,6 @@
-export const load = async ({ params }: any) => {
+import type { PageServerLoad } from './types';
+
+export const load = (async ({ params }) => {
 	// Example from my personal website where I fetched some data for a blogpost
 	// const getBlogpost = async (id: string): Promise<BlogpostWithBody> => {
 	//   const blogpostRes = await fetch(`${API_URL}/blogpost/${id}`);
@@ -17,4 +19,4 @@ export const load = async ({ params }: any) => {
 		// blogpost: getBlogpost(params.id)
 		sectionId: params.sectionId
 	};
-};
+}) satisfies PageServerLoad;

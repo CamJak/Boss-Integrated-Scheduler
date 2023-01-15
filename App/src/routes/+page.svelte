@@ -44,13 +44,3 @@
 		<Hero />
 	</div>
 </div>
-
-<style>
-	.bg-gradient-fill {
-		background-color: hsla(240, 67%, 69%, 1);
-		background-image: radial-gradient(at 94% 14%, hsla(214, 100%, 71%, 0.21) 0px, transparent 50%),
-			radial-gradient(at 12% 97%, hsla(323, 100%, 43%, 0.36) 0px, transparent 50%),
-			radial-gradient(at 21% 2%, hsla(220, 100%, 68%, 0.42) 0px, transparent 50%),
-			radial-gradient(at 83% 20%, hsla(3, 100%, 50%, 0.3) 0px, transparent 50%);
-	}
-</style>
