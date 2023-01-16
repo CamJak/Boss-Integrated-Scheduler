@@ -19,7 +19,7 @@
 		<!-- 	class="text-white hover:cursor-pointer bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg px-4 py-2" -->
 		<!-- 	>Get Started</a -->
 		<!-- > -->
-		<a href="/" class="btn-round text-white bg-gradient-to-r from-blue-400 to-blue-600 font-poppins"
+		<a href="/calendar" class="btn-round text-white bg-gradient-to-r from-blue-400 to-blue-600 font-poppins"
 			>Get Started</a
 		>
 		<a
