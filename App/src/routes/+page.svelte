@@ -1,5 +1,8 @@
 <script lang="ts">
+	import Card from '$lib/components/Card.svelte';
 	import Hero from '$lib/components/Hero.svelte';
+	import AngledDarkImg from '$lib/images/BOSS_ART_ANGLED_DARK_TRANSPARENT.webp';
+	import AngledLightImg from '$lib/images/BOSS_ART_ANGLED_LIGHT_TRANSPARENT.webp';
 </script>
 
 <svelte:head>
@@ -7,40 +10,36 @@
 	<meta name="description" content="LA Tech B.O.S.S. scheduling simplified" />
 </svelte:head>
 
-<div class="inset-0">
-	<div class="dark:bg-black w-full">
-		<!-- <article class="prose max-w-none px-4"> -->
-		<!-- 	<h1>Welcome to the BOSS-Integrated-Scheduler</h1> -->
-		<!-- 	<!-- px-10 pads 10 pixels on left and right side of div -->
-		<!-- 	<!-- I suggest taking a look at the Tailwindcss documentation. It's super useful -->
-		<!--      and has a handy search feature -->
-		<!-- 	<div class="px-10"> -->
-		<!-- 		<p> -->
-		<!-- 			This site is empty. Like some other newer javascript frameworks, SvelteKit uses filesystem -->
-		<!-- 			based routing. If you look in the file structure, there is a +page.svelte file for every -->
-		<!-- 			route. The actual route in the url path is decided by the name of the folder -->
-		<!-- 		</p> -->
-
-		<!-- 		<p> -->
-		<!-- 			Paths with parameters are created and named with brackets. I've created two dummy -->
-		<!-- 			components to be removed, but showcase how this works. -->
-		<!-- 		</p> -->
-
-		<!-- 		<a class="underline" href="/sections">See Sections</a> -->
-
-		<!-- 		<p> -->
-		<!-- 			We we use .server to indicate that a bit of code should be ran on the server. This is done -->
-		<!-- 			to speed up the experience of using the site through server-side datafetching. The -->
-		<!-- 			parameterized route demonstrates this -->
-		<!-- 		</p> -->
-
-		<!-- 		<p class="text-emerald-500 text-xl"> -->
-		<!-- 			This article class "prose" is an example of a tailwind utility class. It does sane default -->
-		<!-- 			formatting for an article style template. The formatting of this text is an example of -->
-		<!-- 			text formatting though Tailwindcss -->
-		<!-- 		</p> -->
-		<!-- 	</div> -->
-		<!-- </article> -->
-		<Hero />
+<div class="inset-0 select-none">
+	<div class="dark:bg-black w-full flex flex-col items-center">
+		<div class="flex flex-col lg:flex-row items-center px-4">
+			<Hero />
+			<img class="hidden dark:block pt-4 pb-2 px-10 w-[40em]" alt="TechLogo" src={AngledDarkImg} />
+			<img class="dark:hidden pt-4 pb-2 px-10 w-[40em]" alt="TechLogo" src={AngledLightImg} />
+		</div>
+		<p class="dark:text-white text-xl font-poppins">
+			Our Mission <span class="text-gray-200 dark:text-gray-700">draft</span>
+		</p>
+		<div class="flex flex-col space-y-4">
+			<Card icon="test">
+				<svelte:fragment>
+					<div class="dark:text-white font-poppins">
+						The mission of this project is to simplify the experience of people trying to make
+						schedules with BOSS. The BOSS scheduling process is quite complicated and requires a lot
+						of unnecessary effort in an already stressful occasion. This project could improve the
+						experience as a student.
+					</div>
+				</svelte:fragment>
+			</Card>
+			<Card icon="test">
+				<svelte:fragment>
+					<div class="dark:text-white font-poppins">
+						Illustrate what students can produce when given a chance to improve Tech's online
+						infrastructure. Tech has a large amount of underutilized potential in the Computer
+						Science and Cyber Engineering Departments. This project could create opportunity.
+					</div>
+				</svelte:fragment>
+			</Card>
+		</div>
 	</div>
 </div>

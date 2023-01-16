@@ -1,7 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 /* These @tailwind statements are ordered in precedence. Applying a utility class and a 
 components class that modify the same property, the utility class's modification will
 be the one applied /*
