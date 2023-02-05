@@ -1,8 +1,0 @@
-{
-	"/": [],
-	"/calendar": [],
-	"/sections": [],
-	"/sections/[sectionId]": [
-		"src/routes/sections/[sectionId]/+page.server.ts"
-	]
-}
