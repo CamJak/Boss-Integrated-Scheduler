@@ -3,6 +3,8 @@
 	import TimeGrid from '@event-calendar/time-grid';
 	import type { Section } from '$lib/models/Calendar';
 
+	// function used to get the monday of the current week
+	// need this because the calendar is meant for full schedules and we want to convert it to just weekly (ignoring dates)
 	function getMonday(d: Date) {
 		d = new Date(d);
 		var day = d.getDay(),
@@ -10,9 +12,11 @@
 		return new Date(d.setDate(diff));
 	};
 
+	// get nearest monday and store to variable for later use
 	let monday = getMonday(new Date());
 
-	let ec;
+	// initializing the calendar object and setting options
+	let ec: Calendar;
 	let plugins = [TimeGrid];
     let options = {
         view: 'timeGridWeek',
@@ -56,8 +60,11 @@
 	};
 
 	// function to parse Section model and display it on the calendar appropriately!
+	// Need to add support for sections with multiple time values
 	function addSection(s: Section) {
 		var eventDay: string;
+		// iterate through days value of section and find a match
+		// when match is found, create a new event on that day with section data
 		for (let i = 0; i < s.days.length; i++) {
 			const character = s.days.charAt(i);
 			if (character == 'M') {
@@ -76,12 +83,14 @@
 		};
 	};
 
+	// function to clear all events from the calendar
 	function clearCalendar() {
 		options.events = []
 	};
 </script>
 
 <div class="px-32 dark:text-white grid grid-cols-6 gap-6">
+	<!-- Left side section for 'section' selection (BOSS integration happens here) -->
 	<div class="border-2 border-slate-400 rounded-lg space-y-4 grid content-start">
 		<select name="subject" id="subject" class="w-[200px]">
 			<option value=""></option>
@@ -96,9 +105,11 @@
 		<button on:click={clearCalendar} class="rounded-full bg-blue-400 p-2">Clear Calendar</button>
 	</div>
 
+	<!-- Our nice calendar component -->
 	<div class="col-start-2 col-end-6">
 		<Calendar bind:this={ec} {plugins} {options} />
 	</div>
 	
+	<!-- Right side section for showing 'sections' that are added to calendar -->
 	<div class="border-2 border-slate-400 rounded-lg">List of active sections here!</div>
 </div>
