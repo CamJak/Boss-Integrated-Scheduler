@@ -1,13 +1,15 @@
 
 <script lang="ts">
-  import type { PageServerData } from "../$types";
+  import type { PageServerData } from "./$types";
   
   export let data: PageServerData;
-  // still trying to figure out why typescript is being so anal about these types
+  const { subjects, message } = data;
 </script>
 
-<h1 class="dark:text-white">{data?.message}</h1>
+<h1 class="dark:text-white">{message}</h1>
 
-{#each data?.subjects as subject}
-  <p class="dark:text-white text-sm">{subject.name}</p>
-{/each}
+{#if data}
+  {#each subjects as subject}
+    <p class="dark:text-white text-sm">{subject.name}</p>
+  {/each}
+{/if}

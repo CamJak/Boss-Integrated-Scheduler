@@ -1,5 +1,6 @@
 import { client } from "$lib/trpc";
-import type { PageServerLoad } from "../sections/[sectionId]/$types";
+import type { PageServerLoad } from "./$types";
+import type { Subject } from "../../../../api/src/models/subjects";
 
 export const load: PageServerLoad = async () => {
 

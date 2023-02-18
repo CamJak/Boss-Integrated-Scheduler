@@ -1,4 +1,4 @@
-import type { PageServerLoad } from './types';
+import type { PageServerLoad } from './$types';
 
 export const load = (async ({ params }) => {
 	// Example from my personal website where I fetched some data for a blogpost
