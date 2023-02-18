@@ -8,3 +8,12 @@
 
 # ignore environment variables for API
 API/.env
+
+# ignore things in api2
+api/node_modules
+api/dist
+api/.env
+
+apiold/node_modules
+apiold/dist
+apiold/.env
