@@ -8,7 +8,15 @@ import json
 import sys
 import time
 
-def run_scraper(output_to_json: bool = False):
+
+# select term
+def select_term(driver, term):
+    driver.find_element('xpath', "//option[ contains(text(), '{}' )]".format(term)).click()
+    driver.find_element('xpath', "//input[ @type='submit' ]").click()
+
+
+# main scraper function
+def run_scraper(term, output_to_json: bool = False):
 
     # set up chrome webdriver
     options = Options()
@@ -22,7 +30,9 @@ def run_scraper(output_to_json: bool = False):
     # set url for main page
     main_url = "https://boss.latech.edu/ia-bin/tsrvweb.cgi?&WID=W&tserve_tip_write=||WID&ConfigName=rcrssecthp1&ReqNum=1&TransactionSource=H&tserve_trans_config=rcrssecthp1.cfg&tserve_host_code=HostZero&tserve_tiphost_code=TipZero"
     driver.get(main_url)
-    driver.find_element('xpath', "//input[ @type='submit' ]").click()
+
+    # pick term
+    select_term(driver, term)
 
     # create object to store collected data
     global all_data
@@ -65,7 +75,7 @@ def run_scraper(output_to_json: bool = False):
             all_data[f"{subject}"] = current_subject
             # go back to main tab
             driver.get(main_url)
-            driver.find_element('xpath', "//input[ @type='submit' ]").click()
+            select_term(driver, term)
     except Exception as e:
         print("An exception occured!")
         print(e)
