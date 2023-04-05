@@ -4,3 +4,19 @@
 
 # ignore scraper output (should be stored in DB)
 *\output.json
+
+# ignore any node_modules
+App/node_modules
+
+
+# ignore environment variables for API
+API/.env
+
+# ignore things in api2
+api/node_modules
+api/dist
+api/.env
+
+apiold/node_modules
+apiold/dist
+apiold/.env
