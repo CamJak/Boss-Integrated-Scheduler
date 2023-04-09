@@ -9,5 +9,10 @@ export interface Section {
     timeStop: string,
     location: string,
     instructor: string,
-    creditHours: string
+    creditHours: string,
+    isCombined: boolean,    //if true, then the section is a combined section
+    combinedDays: string,   //add data for combined section
+    combinedTimeStart: string,
+    combinedTimeStop: string,
+    combinedLocation: string
 }

@@ -35,8 +35,8 @@ def get_section_data(source):
                 td_list.append(re.sub('\xa0', '', tag.getText()))
             # if the previous row was a combined lab and lecture, add lab data to previous row
             if combined:
-                new_section.isComplex = True
-                new_section.daysTimeLocation2 = re.sub(r'\n[\s]*', ' ', td_list[5])
+                new_section.isCombined = True
+                new_section.combinedDaysTimeLocation = re.sub(r'\n[\s]*', ' ', td_list[5])
                 # resets combined flag
                 combined = False
                 # add completed section to list

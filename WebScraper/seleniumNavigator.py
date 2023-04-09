@@ -97,5 +97,5 @@ def run_scraper(term, output_to_json: bool = False):
 #  It will only run if you do python3 seleniumNavigator.py
 if __name__ == "__main__":
     # run with output enabled if directly executed
-    run_scraper(output_to_json=True)
+    run_scraper("Spring 2023", output_to_json=True)
 
