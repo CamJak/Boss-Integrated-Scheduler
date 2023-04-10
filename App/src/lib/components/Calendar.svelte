@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Calendar from '@event-calendar/core';
 	import TimeGrid from '@event-calendar/time-grid';
-	import type { Section } from '$lib/models/Calendar';
+	import { createCalendarConfig, type Section } from '$lib/models/Calendar';
 
 	// function used to get the monday of the current week
 	// need this because the calendar is meant for full schedules and we want to convert it to just weekly (ignoring dates)
@@ -28,7 +28,10 @@
 		allDaySlot: false, // hide all day slotS
 		dayHeaderFormat: {weekday: 'long', month: 'numeric', day: 'numeric'},
 		headerToolbar: {start: '', center: '', end: ''}, // hide header
-		theme: {active: 'ec-active', allDay: 'ec-all-day', bgEvent: 'ec-bg-event', bgEvents: 'ec-bg-events', body: 'ec-body', button: 'ec-button', buttonGroup: 'ec-button-group', calendar: 'ec', compact: 'ec-compact', content: 'ec-content', day: 'ec-day', dayFoot: 'ec-day-foot', dayHead: 'ec-day-head', daySide: 'ec-day-side', days: 'ec-days', draggable: 'ec-draggable', dragging: 'ec-dragging', event: 'ec-event', eventBody: 'ec-event-body', eventTag: 'ec-event-tag', eventTime: 'ec-event-time', eventTitle: 'ec-event-title', events: 'ec-events', extra: 'ec-extra', ghost: 'ec-ghost', handle: 'ec-handle', header: 'ec-header', hiddenScroll: 'ec-hidden-scroll', hiddenTimes: 'ec-hidden-times', highlight: 'ec-highlight', icon: 'ec-icon', line: 'ec-line', lines: 'ec-lines', list: 'ec-list', month: 'ec-month', noEvents: 'ec-no-events', nowIndicator: 'ec-now-indicator', otherMonth: 'ec-other-month', pointer: 'ec-pointer', popup: 'ec-popup', preview: 'ec-preview', resizer: 'ec-resizer', resizingX: 'ec-resizing-x', resizingY: 'ec-resizing-y', resource: 'ec-resource', resourceTitle: 'ec-resource-title', selecting: 'ec-selecting', sidebar: 'ec-sidebar', sidebarTitle: 'ec-sidebar-title', time: 'ec-time', title: 'ec-title', today: '', toolbar: 'ec-toolbar', uniform: 'ec-uniform', week: 'ec-week', withScroll: 'ec-with-scroll'}
+		theme: createCalendarConfig({
+			// any theme configurations would go here
+			today: '' // remove highlight for today (can be handled another way if we want to keep it)
+		}),
     };
 
 	// Hardcoded sections for testing purposes :)
@@ -57,7 +60,7 @@
 		status: "closed",
 		activity: "lecture",
 		modality: "Face to face",
-		days: "TH",
+		days: "TR",
 		timeStart: "08:00",
 		timeStop: "09:50",
 		location: "IESB 205",
@@ -76,7 +79,7 @@
         status: "Closed",
         activity: "Combined lecture and lab",
         modality: "Face to face",
-        days: "TH",
+        days: "TR",
 		timeStart: "12:00",
 		timeStop: "13:15",
 		location: "IESB 224",
@@ -96,16 +99,18 @@
 		// when match is found, create a new event on that day with given data
 		for (let i = 0; i < days.length; i++) {
 			const character = days.charAt(i);
+			// need to verify that the class is not async online
 			if (character == 'M') {
-				var eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + monday.getDate();
+				eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + monday.getDate();
 			} else if (character == 'T') {
-				var eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+1);
+				eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+1);
 			} else if (character == 'W') {
-				var eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+2);
-			} else if (character == 'H') {
-				var eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+3);
-			} else if (character == 'F') {
-				var eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+4);
+				eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+2);
+			} else if (character == 'R') {
+				eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+3);
+			// should logically be Friday (Further validation may be required, but this SHOULD work for now)
+			} else {
+				eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+4);
 			};
 			let newEvent = {start: eventDay + " " + timeStart, end: eventDay + " " + timeStop, resourceId: 1, title: title, color: "#2D41F0"};
 			ec.addEvent(newEvent);
