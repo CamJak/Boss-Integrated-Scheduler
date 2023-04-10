@@ -25,9 +25,10 @@
 		slotMaxTime: '19:00:00', // 7pm
 		firstDay: '1', // set first day of week to monday
 		hiddenDays: [0, 6], // hide weekends
-		allDaySlot: false, // hide all day slot
+		allDaySlot: false, // hide all day slotS
 		dayHeaderFormat: {weekday: 'long', month: 'numeric', day: 'numeric'},
-		headerToolbar: {start: '', center: '', end: ''} // hide header
+		headerToolbar: {start: '', center: '', end: ''}, // hide header
+		theme: {active: 'ec-active', allDay: 'ec-all-day', bgEvent: 'ec-bg-event', bgEvents: 'ec-bg-events', body: 'ec-body', button: 'ec-button', buttonGroup: 'ec-button-group', calendar: 'ec', compact: 'ec-compact', content: 'ec-content', day: 'ec-day', dayFoot: 'ec-day-foot', dayHead: 'ec-day-head', daySide: 'ec-day-side', days: 'ec-days', draggable: 'ec-draggable', dragging: 'ec-dragging', event: 'ec-event', eventBody: 'ec-event-body', eventTag: 'ec-event-tag', eventTime: 'ec-event-time', eventTitle: 'ec-event-title', events: 'ec-events', extra: 'ec-extra', ghost: 'ec-ghost', handle: 'ec-handle', header: 'ec-header', hiddenScroll: 'ec-hidden-scroll', hiddenTimes: 'ec-hidden-times', highlight: 'ec-highlight', icon: 'ec-icon', line: 'ec-line', lines: 'ec-lines', list: 'ec-list', month: 'ec-month', noEvents: 'ec-no-events', nowIndicator: 'ec-now-indicator', otherMonth: 'ec-other-month', pointer: 'ec-pointer', popup: 'ec-popup', preview: 'ec-preview', resizer: 'ec-resizer', resizingX: 'ec-resizing-x', resizingY: 'ec-resizing-y', resource: 'ec-resource', resourceTitle: 'ec-resource-title', selecting: 'ec-selecting', sidebar: 'ec-sidebar', sidebarTitle: 'ec-sidebar-title', time: 'ec-time', title: 'ec-title', today: '', toolbar: 'ec-toolbar', uniform: 'ec-uniform', week: 'ec-week', withScroll: 'ec-with-scroll'}
     };
 
 	// Hardcoded sections for testing purposes :)
