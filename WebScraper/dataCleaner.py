@@ -1,4 +1,4 @@
-from sys import *
+from sys import argv
 import json
 import re
 from models import sectionData
