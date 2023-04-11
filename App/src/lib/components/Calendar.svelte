@@ -8,9 +8,9 @@
 	function getMonday(d: Date) {
 		d = new Date(d);
 		var day = d.getDay(),
-			diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+			diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
 		return new Date(d.setDate(diff));
-	};
+	}
 
 	// get nearest monday and store to variable for later use
 	let monday = getMonday(new Date());
@@ -18,79 +18,79 @@
 	// initializing the calendar object and setting options
 	let ec: Calendar;
 	let plugins = [TimeGrid];
-    let options = {
-        view: 'timeGridWeek', // set view to week
+	let options = {
+		view: 'timeGridWeek', // set view to week
 		height: '700px',
 		slotMinTime: '07:00:00', // 7am to ...
 		slotMaxTime: '19:00:00', // 7pm
 		firstDay: '1', // set first day of week to monday
 		hiddenDays: [0, 6], // hide weekends
 		allDaySlot: false, // hide all day slotS
-		dayHeaderFormat: {weekday: 'long', month: 'numeric', day: 'numeric'},
-		headerToolbar: {start: '', center: '', end: ''}, // hide header
+		dayHeaderFormat: { weekday: 'long', month: 'numeric', day: 'numeric' },
+		headerToolbar: { start: '', center: '', end: '' }, // hide header
 		theme: createCalendarConfig({
 			// any theme configurations would go here
 			today: '' // remove highlight for today (can be handled another way if we want to keep it)
-		}),
-    };
+		})
+	};
 
 	// Hardcoded sections for testing purposes :)
 	let testSection1: Section = {
-		title: "CSC -132 -001 THE SCIENCE OF COMPUTING III",
-		callNumber: "20581",
-		status: "closed",
-		activity: "lecture",
-		modality: "Face to face",
-		days: "MWF",
-		timeStart: "14:00",
-		timeStop: "15:15",
-		location: "IESB 205",
-		instructor: "KIREMIRE A",
-		creditHours: "3.00",
+		title: 'CSC -132 -001 THE SCIENCE OF COMPUTING III',
+		callNumber: '20581',
+		status: 'closed',
+		activity: 'lecture',
+		modality: 'Face to face',
+		days: 'MWF',
+		timeStart: '14:00',
+		timeStop: '15:15',
+		location: 'IESB 205',
+		instructor: 'KIREMIRE A',
+		creditHours: '3.00',
 		isCombined: false,
-		combinedDays: "",
-		combinedTimeStart: "",
-		combinedTimeStop: "",
-		combinedLocation: ""
+		combinedDays: '',
+		combinedTimeStart: '',
+		combinedTimeStop: '',
+		combinedLocation: ''
 	};
 
 	let testSection2: Section = {
-		title: "CSC -132 -002 THE SCIENCE OF COMPUTING III",
-		callNumber: "20581",
-		status: "closed",
-		activity: "lecture",
-		modality: "Face to face",
-		days: "TR",
-		timeStart: "08:00",
-		timeStop: "09:50",
-		location: "IESB 205",
-		instructor: "CHERRY K",
-		creditHours: "3.00",
+		title: 'CSC -132 -002 THE SCIENCE OF COMPUTING III',
+		callNumber: '20581',
+		status: 'closed',
+		activity: 'lecture',
+		modality: 'Face to face',
+		days: 'TR',
+		timeStart: '08:00',
+		timeStop: '09:50',
+		location: 'IESB 205',
+		instructor: 'CHERRY K',
+		creditHours: '3.00',
 		isCombined: false,
-		combinedDays: "",
-		combinedTimeStart: "",
-		combinedTimeStop: "",
-		combinedLocation: ""
+		combinedDays: '',
+		combinedTimeStart: '',
+		combinedTimeStop: '',
+		combinedLocation: ''
 	};
 
 	let testSection3: Section = {
-		title: "ELEN-423 -001 EMBEDDED SYSTEMS",
-        callNumber: "30775",
-        status: "Closed",
-        activity: "Combined lecture and lab",
-        modality: "Face to face",
-        days: "TR",
-		timeStart: "12:00",
-		timeStop: "13:15",
-		location: "IESB 224",
-        instructor: "GATES M",
-        creditHours: " 3.00",
-        isCombined: true,
-        combinedDays: "T",
-		combinedTimeStart: "14:00",
-		combinedTimeStop: "18:00",
-		combinedLocation: "UNVH 134"
-	}
+		title: 'ELEN-423 -001 EMBEDDED SYSTEMS',
+		callNumber: '30775',
+		status: 'Closed',
+		activity: 'Combined lecture and lab',
+		modality: 'Face to face',
+		days: 'TR',
+		timeStart: '12:00',
+		timeStop: '13:15',
+		location: 'IESB 224',
+		instructor: 'GATES M',
+		creditHours: ' 3.00',
+		isCombined: true,
+		combinedDays: 'T',
+		combinedTimeStart: '14:00',
+		combinedTimeStop: '18:00',
+		combinedLocation: 'UNVH 134'
+	};
 
 	function addEvent(days: string, timeStart: string, timeStop: string, title: string) {
 		var eventDay: string;
@@ -101,20 +101,30 @@
 			const character = days.charAt(i);
 			// need to verify that the class is not async online
 			if (character == 'M') {
-				eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + monday.getDate();
+				eventDay = monday.getFullYear() + '-' + (monday.getMonth() + 1) + '-' + monday.getDate();
 			} else if (character == 'T') {
-				eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+1);
+				eventDay =
+					monday.getFullYear() + '-' + (monday.getMonth() + 1) + '-' + (monday.getDate() + 1);
 			} else if (character == 'W') {
-				eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+2);
+				eventDay =
+					monday.getFullYear() + '-' + (monday.getMonth() + 1) + '-' + (monday.getDate() + 2);
 			} else if (character == 'R') {
-				eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+3);
-			// should logically be Friday (Further validation may be required, but this SHOULD work for now)
+				eventDay =
+					monday.getFullYear() + '-' + (monday.getMonth() + 1) + '-' + (monday.getDate() + 3);
+				// should logically be Friday (Further validation may be required, but this SHOULD work for now)
 			} else {
-				eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+4);
+				eventDay =
+					monday.getFullYear() + '-' + (monday.getMonth() + 1) + '-' + (monday.getDate() + 4);
+			}
+			let newEvent = {
+				start: eventDay + ' ' + timeStart,
+				end: eventDay + ' ' + timeStop,
+				resourceId: 1,
+				title: title,
+				color: '#2D41F0'
 			};
-			let newEvent = {start: eventDay + " " + timeStart, end: eventDay + " " + timeStop, resourceId: 1, title: title, color: "#2D41F0"};
 			ec.addEvent(newEvent);
-		};
+		}
 	}
 
 	// function to parse Section model and display it on the calendar appropriately!
@@ -125,28 +135,34 @@
 		if (s.isCombined) {
 			addEvent(s.combinedDays, s.combinedTimeStart, s.combinedTimeStop, s.title);
 		}
-	};
+	}
 
 	// function to clear all events from the calendar
 	function clearCalendar() {
-		options.events = []
-	};
+		options.events = [];
+	}
 </script>
 
 <div class="px-32 dark:text-white grid grid-cols-6 gap-6">
 	<!-- Left side section for 'section' selection (BOSS integration happens here) -->
 	<div class="border-2 border-slate-400 rounded-lg space-y-4 grid content-start">
 		<select name="subject" id="subject" class="w-[200px]">
-			<option value=""></option>
+			<option value="" />
 			<option value="Computer Science">Computer Science</option>
 		</select>
 		<select name="course" id="course" class="w-[200px]">
-			<option value=""></option>
+			<option value="" />
 			<option value="CSC 132 - Something idk">CSC -132 THE SCIENCE OF COMPUTING III</option>
 		</select>
-		<button on:click={() => addSection(testSection1)} class="rounded-full bg-blue-400 p-2">Add Test Section 1</button>
-		<button on:click={() => addSection(testSection2)} class="rounded-full bg-blue-400 p-2">Add Test Section 2</button>
-		<button on:click={() => addSection(testSection3)} class="rounded-full bg-blue-400 p-2">Add Test Section 3</button>
+		<button on:click={() => addSection(testSection1)} class="rounded-full bg-blue-400 p-2"
+			>Add Test Section 1</button
+		>
+		<button on:click={() => addSection(testSection2)} class="rounded-full bg-blue-400 p-2"
+			>Add Test Section 2</button
+		>
+		<button on:click={() => addSection(testSection3)} class="rounded-full bg-blue-400 p-2"
+			>Add Test Section 3</button
+		>
 		<button on:click={clearCalendar} class="rounded-full bg-blue-400 p-2">Clear Calendar</button>
 	</div>
 
@@ -154,7 +170,7 @@
 	<div class="col-start-2 col-end-6">
 		<Calendar bind:this={ec} {plugins} {options} />
 	</div>
-	
+
 	<!-- Right side section for showing 'sections' that are added to calendar -->
 	<div class="border-2 border-slate-400 rounded-lg">List of active sections here!</div>
 </div>

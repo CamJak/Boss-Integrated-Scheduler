@@ -14,8 +14,16 @@
 	<div class="dark:bg-black w-full flex flex-col items-center">
 		<div class="flex flex-col lg:flex-row items-center px-4">
 			<Hero />
-			<img class="hidden dark:block pt-4 pb-2 px-10 w-[40em]" alt="CalendarConcept" src={AngledDarkImg} />
-			<img class="dark:hidden pt-4 pb-2 px-10 w-[40em]" alt="CalendarConcept" src={AngledLightImg} />
+			<img
+				class="hidden dark:block pt-4 pb-2 px-10 w-[40em]"
+				alt="CalendarConcept"
+				src={AngledDarkImg}
+			/>
+			<img
+				class="dark:hidden pt-4 pb-2 px-10 w-[40em]"
+				alt="CalendarConcept"
+				src={AngledLightImg}
+			/>
 		</div>
 		<p class="dark:text-white text-xl font-poppins">
 			Our Mission <span class="text-gray-200 dark:text-gray-700">draft</span>
