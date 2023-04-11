@@ -1,34 +1,17 @@
 from sys import argv
 import json
 import re
-from models import sectionData
 
 
 # Script to clean the data from the web scraper
-def main():
-    # Read input json file from command line
-    try:
-        file = open(argv[1], "r")
-    except:
-        print("Error: File not found")
-        exit(1)
-
-    # Read the json data to a dictionary
-    try:
-        data = json.load(file)
-    except:
-        print("Error: File is not in json format")
-        exit(1)
-
-    # Close the file
-    file.close()
-
+def clean(scraperData):
     # Iterate through the dictionary and clean the data
-    for subject in data:
-        for course in data[subject]:
-            for i in range(len(data[subject][course])):
-                section = data[subject][course][i]
+    for subject in scraperData:
+        for course in scraperData[subject]:
+            for i in range(len(scraperData[subject][course])):
+                section = scraperData[subject][course][i]
                 # Implement cleaning for each part of section model on calendar
+                # Can be changed to use class attributes over dict keys if changed in scrapeFunctions.py
                 cleanSection = {}
 
                 # Clean the section title
@@ -126,7 +109,7 @@ def main():
                     cleanSection['combinedLocation'] = ""
 
                 # Replace the old section with the new cleaned section
-                data[subject][course][i] = cleanSection
+                scraperData[subject][course][i] = cleanSection
     
     # Print the data to output json file
     try:
@@ -137,13 +120,10 @@ def main():
 
     # Write the json data to a file
     try:
-        json.dump(data, file, indent=2)
+        json.dump(scraperData, file, indent=2)
     except:
         print("Error: File is not in json format")
         exit(1)
     
     # Close the file
     file.close()
-
-if __name__ == "__main__":
-    main()

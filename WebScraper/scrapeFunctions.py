@@ -60,6 +60,8 @@ def get_section_data(source):
                 td_list[8]
             )
             if not combined:
+                # conversion to dict was because of json output
+                # can be removed and left as a class but requires you to change cleaner to use class attributes instead of dict keys
                 data_list.append(asdict(new_section))
         # move to next row
         count += 1

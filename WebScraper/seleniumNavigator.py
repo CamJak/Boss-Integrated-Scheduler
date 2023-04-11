@@ -16,7 +16,10 @@ def select_term(driver, term):
 
 
 # main scraper function
-def run_scraper(term, output_to_json: bool = False):
+def run_scraper(term, output_to_json: bool = False, num_fails: int = 0):
+
+    # def max_fails
+    MAX_FAILS = 5
 
     # set up chrome webdriver
     options = Options()
@@ -76,9 +79,17 @@ def run_scraper(term, output_to_json: bool = False):
             # go back to main tab
             driver.get(main_url)
             select_term(driver, term)
+    except KeyboardInterrupt:
+        print(f"KeyboardInterrupt after {num_fails} fails! Exiting...")
     except Exception as e:
         print("An exception occured!")
+        print(f"{num_fails} fails so far")
         print(e)
+        if num_fails < MAX_FAILS:
+            print("Trying again...")
+            run_scraper(term, output_to_json, num_fails + 1)
+        else:
+            print("Max number of fails reached! Exiting...")
     else:
         print("Finished Successfully!")
     finally:
@@ -92,6 +103,8 @@ def run_scraper(term, output_to_json: bool = False):
             json_out = json.dumps(all_data, indent=2)
             with open('output.json', 'w') as sys.stdout:
                 print(json_out)
+        else:
+            return all_data
 
 # This code will not run if you import this file
 #  It will only run if you do python3 seleniumNavigator.py
