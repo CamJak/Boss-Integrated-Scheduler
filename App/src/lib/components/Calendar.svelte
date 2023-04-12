@@ -92,6 +92,9 @@
 		combinedLocation: 'UNVH 134'
 	};
 
+	// initialize empty list for added sections
+	let addedSections: Section[] = [];
+
 	function addEvent(days: string, timeStart: string, timeStop: string, title: string) {
 		var eventDay: string;
 
@@ -131,6 +134,9 @@
 	function addSection(s: Section) {
 		// add the section to the calendar
 		addEvent(s.days, s.timeStart, s.timeStop, s.title);
+		// add the section to the list of added sections
+		addedSections.push(s);
+		addedSections = addedSections;
 		// if section is combined, add the combined days to the calendar as well
 		if (s.isCombined) {
 			addEvent(s.combinedDays, s.combinedTimeStart, s.combinedTimeStop, s.title);
@@ -172,5 +178,15 @@
 	</div>
 
 	<!-- Right side section for showing 'sections' that are added to calendar -->
-	<div class="border-2 border-slate-400 rounded-lg">List of active sections here!</div>
+	<div class="border-2 border-slate-400 rounded-lg">
+		<!-- Display added sections in a scrollable bar -->
+		<div class="overflow-y-scroll h-[700px]">
+			{#each addedSections as section}
+				<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400">
+					<h1>{section.title}</h1>
+					<h2>{section.callNumber}</h2>
+				</div>
+			{/each}
+		</div>
+	</div>
 </div>
