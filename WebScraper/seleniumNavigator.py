@@ -8,7 +8,18 @@ import json
 import sys
 import time
 
-def run_scraper(output_to_json: bool = False):
+
+# select term
+def select_term(driver, term):
+    driver.find_element('xpath', "//option[ contains(text(), '{}' )]".format(term)).click()
+    driver.find_element('xpath', "//input[ @type='submit' ]").click()
+
+
+# main scraper function
+def run_scraper(term, output_to_json: bool = False, num_fails: int = 0):
+
+    # def max_fails
+    MAX_FAILS = 5
 
     # set up chrome webdriver
     options = Options()
@@ -22,7 +33,9 @@ def run_scraper(output_to_json: bool = False):
     # set url for main page
     main_url = "https://boss.latech.edu/ia-bin/tsrvweb.cgi?&WID=W&tserve_tip_write=||WID&ConfigName=rcrssecthp1&ReqNum=1&TransactionSource=H&tserve_trans_config=rcrssecthp1.cfg&tserve_host_code=HostZero&tserve_tiphost_code=TipZero"
     driver.get(main_url)
-    driver.find_element('xpath', "//input[ @type='submit' ]").click()
+
+    # pick term
+    select_term(driver, term)
 
     # create object to store collected data
     global all_data
@@ -65,10 +78,18 @@ def run_scraper(output_to_json: bool = False):
             all_data[f"{subject}"] = current_subject
             # go back to main tab
             driver.get(main_url)
-            driver.find_element('xpath', "//input[ @type='submit' ]").click()
+            select_term(driver, term)
+    except KeyboardInterrupt:
+        print(f"KeyboardInterrupt after {num_fails} fails! Exiting...")
     except Exception as e:
         print("An exception occured!")
+        print(f"{num_fails} fails so far")
         print(e)
+        if num_fails < MAX_FAILS:
+            print("Trying again...")
+            run_scraper(term, output_to_json, num_fails + 1)
+        else:
+            print("Max number of fails reached! Exiting...")
     else:
         print("Finished Successfully!")
     finally:
@@ -82,10 +103,12 @@ def run_scraper(output_to_json: bool = False):
             json_out = json.dumps(all_data, indent=2)
             with open('output.json', 'w') as sys.stdout:
                 print(json_out)
+        else:
+            return all_data
 
 # This code will not run if you import this file
 #  It will only run if you do python3 seleniumNavigator.py
 if __name__ == "__main__":
     # run with output enabled if directly executed
-    run_scraper(output_to_json=True)
+    run_scraper("Spring 2023", output_to_json=True)
 

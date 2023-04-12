@@ -11,8 +11,8 @@ class sectionData:
     daysTimeLocation: str
     instructor: str
     creditHours: str
-    isComplex: bool = False
-    daysTimeLocation2: str = ""
+    isCombined: bool = False
+    combinedDaysTimeLocation: str = ""
 
 ## Test for use of data structure
 # all_data = {}

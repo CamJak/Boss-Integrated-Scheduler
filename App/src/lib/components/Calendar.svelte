@@ -1,16 +1,16 @@
 <script lang="ts">
 	import Calendar from '@event-calendar/core';
 	import TimeGrid from '@event-calendar/time-grid';
-	import type { Section } from '$lib/models/Calendar';
+	import { createCalendarConfig, type Section } from '$lib/models/Calendar';
 
 	// function used to get the monday of the current week
 	// need this because the calendar is meant for full schedules and we want to convert it to just weekly (ignoring dates)
 	function getMonday(d: Date) {
 		d = new Date(d);
 		var day = d.getDay(),
-			diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+			diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
 		return new Date(d.setDate(diff));
-	};
+	}
 
 	// get nearest monday and store to variable for later use
 	let monday = getMonday(new Date());
@@ -18,90 +18,151 @@
 	// initializing the calendar object and setting options
 	let ec: Calendar;
 	let plugins = [TimeGrid];
-    let options = {
-        view: 'timeGridWeek',
+	let options = {
+		view: 'timeGridWeek', // set view to week
 		height: '700px',
-		slotMinTime: '07:00:00',
-		slotMaxTime: '19:00:00',
-		firstDay: '1',
-		hiddenDays: [0,6],
-		allDaySlot: false,
-		dayHeaderFormat: {weekday: 'long', month: 'numeric', day: 'numeric'},
-		headerToolbar: {start: '', center: '', end: ''}
-    };
+		slotMinTime: '07:00:00', // 7am to ...
+		slotMaxTime: '19:00:00', // 7pm
+		firstDay: '1', // set first day of week to monday
+		hiddenDays: [0, 6], // hide weekends
+		allDaySlot: false, // hide all day slotS
+		dayHeaderFormat: { weekday: 'long', month: 'numeric', day: 'numeric' },
+		headerToolbar: { start: '', center: '', end: '' }, // hide header
+		theme: createCalendarConfig({
+			// any theme configurations would go here
+			today: '' // remove highlight for today (can be handled another way if we want to keep it)
+		})
+	};
 
 	// Hardcoded sections for testing purposes :)
 	let testSection1: Section = {
-		title: "CSC -132 -001 THE SCIENCE OF COMPUTING III",
-		callNumber: "20581",
-		status: "closed",
-		activity: "lecture",
-		modality: "Face to face",
-		days: "MWF",
-		timeStart: "14:00",
-		timeStop: "15:15",
-		location: "IESB 205",
-		instructor: "KIREMIRE A",
-		creditHours: "3.00"
+		title: 'CSC -132 -001 THE SCIENCE OF COMPUTING III',
+		callNumber: '20581',
+		status: 'closed',
+		activity: 'lecture',
+		modality: 'Face to face',
+		days: 'MWF',
+		timeStart: '14:00',
+		timeStop: '15:15',
+		location: 'IESB 205',
+		instructor: 'KIREMIRE A',
+		creditHours: '3.00',
+		isCombined: false,
+		combinedDays: '',
+		combinedTimeStart: '',
+		combinedTimeStop: '',
+		combinedLocation: ''
 	};
 
 	let testSection2: Section = {
-		title: "CSC -132 -002 THE SCIENCE OF COMPUTING III",
-		callNumber: "20581",
-		status: "closed",
-		activity: "lecture",
-		modality: "Face to face",
-		days: "TH",
-		timeStart: "8:00",
-		timeStop: "9:50",
-		location: "IESB 205",
-		instructor: "CHERRY K",
-		creditHours: "3.00"
+		title: 'CSC -132 -002 THE SCIENCE OF COMPUTING III',
+		callNumber: '20581',
+		status: 'closed',
+		activity: 'lecture',
+		modality: 'Face to face',
+		days: 'TR',
+		timeStart: '08:00',
+		timeStop: '09:50',
+		location: 'IESB 205',
+		instructor: 'CHERRY K',
+		creditHours: '3.00',
+		isCombined: false,
+		combinedDays: '',
+		combinedTimeStart: '',
+		combinedTimeStop: '',
+		combinedLocation: ''
 	};
 
-	// function to parse Section model and display it on the calendar appropriately!
-	// Need to add support for sections with multiple time values
-	function addSection(s: Section) {
-		var eventDay: string;
-		// iterate through days value of section and find a match
-		// when match is found, create a new event on that day with section data
-		for (let i = 0; i < s.days.length; i++) {
-			const character = s.days.charAt(i);
-			if (character == 'M') {
-				var eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + monday.getDate();
-			} else if (character == 'T') {
-				var eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+1);
-			} else if (character == 'W') {
-				var eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+2);
-			} else if (character == 'H') {
-				var eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+3);
-			} else if (character == 'F') {
-				var eventDay = monday.getFullYear() + "-" + (monday.getMonth()+1) + "-" + (monday.getDate()+4);
-			};
-			let newEvent = {start: eventDay + " " + s.timeStart, end: eventDay + " " + s.timeStop, resourceId: 1, title: s.title, color: "#2D41F0"};
-			ec.addEvent(newEvent);
-		};
+	let testSection3: Section = {
+		title: 'ELEN-423 -001 EMBEDDED SYSTEMS',
+		callNumber: '30775',
+		status: 'Closed',
+		activity: 'Combined lecture and lab',
+		modality: 'Face to face',
+		days: 'TR',
+		timeStart: '12:00',
+		timeStop: '13:15',
+		location: 'IESB 224',
+		instructor: 'GATES M',
+		creditHours: ' 3.00',
+		isCombined: true,
+		combinedDays: 'T',
+		combinedTimeStart: '14:00',
+		combinedTimeStop: '18:00',
+		combinedLocation: 'UNVH 134'
 	};
+
+	function addEvent(days: string, timeStart: string, timeStop: string, title: string) {
+		var eventDay: string;
+
+		// iterate through days value of event and find a match
+		// when match is found, create a new event on that day with given data
+		for (let i = 0; i < days.length; i++) {
+			const character = days.charAt(i);
+			// need to verify that the class is not async online
+			if (character == 'M') {
+				eventDay = monday.getFullYear() + '-' + (monday.getMonth() + 1) + '-' + monday.getDate();
+			} else if (character == 'T') {
+				eventDay =
+					monday.getFullYear() + '-' + (monday.getMonth() + 1) + '-' + (monday.getDate() + 1);
+			} else if (character == 'W') {
+				eventDay =
+					monday.getFullYear() + '-' + (monday.getMonth() + 1) + '-' + (monday.getDate() + 2);
+			} else if (character == 'R') {
+				eventDay =
+					monday.getFullYear() + '-' + (monday.getMonth() + 1) + '-' + (monday.getDate() + 3);
+				// should logically be Friday (Further validation may be required, but this SHOULD work for now)
+			} else {
+				eventDay =
+					monday.getFullYear() + '-' + (monday.getMonth() + 1) + '-' + (monday.getDate() + 4);
+			}
+			let newEvent = {
+				start: eventDay + ' ' + timeStart,
+				end: eventDay + ' ' + timeStop,
+				resourceId: 1,
+				title: title,
+				color: '#2D41F0'
+			};
+			ec.addEvent(newEvent);
+		}
+	}
+
+	// function to parse Section model and display it on the calendar appropriately!
+	function addSection(s: Section) {
+		// add the section to the calendar
+		addEvent(s.days, s.timeStart, s.timeStop, s.title);
+		// if section is combined, add the combined days to the calendar as well
+		if (s.isCombined) {
+			addEvent(s.combinedDays, s.combinedTimeStart, s.combinedTimeStop, s.title);
+		}
+	}
 
 	// function to clear all events from the calendar
 	function clearCalendar() {
-		options.events = []
-	};
+		options.events = [];
+	}
 </script>
 
 <div class="px-32 dark:text-white grid grid-cols-6 gap-6">
 	<!-- Left side section for 'section' selection (BOSS integration happens here) -->
 	<div class="border-2 border-slate-400 rounded-lg space-y-4 grid content-start">
 		<select name="subject" id="subject" class="w-[200px]">
-			<option value=""></option>
+			<option value="" />
 			<option value="Computer Science">Computer Science</option>
 		</select>
 		<select name="course" id="course" class="w-[200px]">
-			<option value=""></option>
+			<option value="" />
 			<option value="CSC 132 - Something idk">CSC -132 THE SCIENCE OF COMPUTING III</option>
 		</select>
-		<button on:click={() => addSection(testSection1)} class="rounded-full bg-blue-400 p-2">Add Test Section 1</button>
-		<button on:click={() => addSection(testSection2)} class="rounded-full bg-blue-400 p-2">Add Test Section 2</button>
+		<button on:click={() => addSection(testSection1)} class="rounded-full bg-blue-400 p-2"
+			>Add Test Section 1</button
+		>
+		<button on:click={() => addSection(testSection2)} class="rounded-full bg-blue-400 p-2"
+			>Add Test Section 2</button
+		>
+		<button on:click={() => addSection(testSection3)} class="rounded-full bg-blue-400 p-2"
+			>Add Test Section 3</button
+		>
 		<button on:click={clearCalendar} class="rounded-full bg-blue-400 p-2">Clear Calendar</button>
 	</div>
 
@@ -109,7 +170,7 @@
 	<div class="col-start-2 col-end-6">
 		<Calendar bind:this={ec} {plugins} {options} />
 	</div>
-	
+
 	<!-- Right side section for showing 'sections' that are added to calendar -->
 	<div class="border-2 border-slate-400 rounded-lg">List of active sections here!</div>
 </div>

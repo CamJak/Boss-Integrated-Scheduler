@@ -35,8 +35,8 @@ def get_section_data(source):
                 td_list.append(re.sub('\xa0', '', tag.getText()))
             # if the previous row was a combined lab and lecture, add lab data to previous row
             if combined:
-                new_section.isComplex = True
-                new_section.daysTimeLocation2 = re.sub(r'\n[\s]*', ' ', td_list[5])
+                new_section.isCombined = True
+                new_section.combinedDaysTimeLocation = re.sub(r'\n[\s]*', ' ', td_list[5])
                 # resets combined flag
                 combined = False
                 # add completed section to list
@@ -60,6 +60,8 @@ def get_section_data(source):
                 td_list[8]
             )
             if not combined:
+                # conversion to dict was because of json output
+                # can be removed and left as a class but requires you to change cleaner to use class attributes instead of dict keys
                 data_list.append(asdict(new_section))
         # move to next row
         count += 1
