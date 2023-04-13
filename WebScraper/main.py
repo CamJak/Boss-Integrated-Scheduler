@@ -1,9 +1,19 @@
 from seleniumNavigator import run_scraper
 from dataCleaner import clean
-from database import insert_to_database
+from database import insert_to_database, get_connection_info, DB
+from dotenv import load_dotenv
 
 # this means it only runs when directly executed by python
 if __name__ == "__main__":
+
+    # load environment variables defined in .env file
+    load_dotenv(".env")
+    
+    # load connection info validating properties along the way
+    connection_info = get_connection_info()
+
+    database = DB(connection_info)
+
     scraper_out = run_scraper('Spring 2023')
     cleaner_out = clean(scraper_out)
-    insert_to_database(cleaner_out)
+    insert_to_database(database, cleaner_out)
