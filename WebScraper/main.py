@@ -14,6 +14,8 @@ if __name__ == "__main__":
 
     database = DB(connection_info)
 
-    scraper_out = run_scraper('Spring 2023')
-    cleaner_out = clean(scraper_out)
+    scraper_out = run_scraper('Spring 2023', True)
+    cleaner_out = clean(scraper_out, True)
     insert_to_database(database, cleaner_out)
+
+    database.close_connection()

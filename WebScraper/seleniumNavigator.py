@@ -100,11 +100,10 @@ def run_scraper(term, output_to_json: bool = False, num_fails: int = 0):
         print(f"Time elapsed(s): {elapsed_time}")
         # output as json if specified
         if output_to_json:
-            json_out = json.dumps(all_data, indent=2)
-            with open('output.json', 'w') as sys.stdout:
-                print(json_out)
-        else:
-            return all_data
+            with open('output.json', 'w') as outfile:
+                json.dump(all_data, outfile)
+
+        return all_data
 
 # This code will not run if you import this file
 #  It will only run if you do python3 seleniumNavigator.py

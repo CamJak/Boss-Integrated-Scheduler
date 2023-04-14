@@ -130,3 +130,9 @@ def clean(scraperData, output_to_json: bool = False):
         # Close the file
         file.close()
     return scraperData
+
+if __name__ == "__main__":
+    f = open("output.json")
+    data = json.load(f)
+    clean(data, output_to_json=True)
+
