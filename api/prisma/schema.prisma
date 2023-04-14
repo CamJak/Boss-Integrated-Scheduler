@@ -1,85 +1,91 @@
-
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-  id            String   @id @default(uuid())
-  createdAt     DateTime @default(now()) @map("created_at")
-  updatedAt     DateTime @updatedAt @map("updated_at")
-  email         String   @unique
-  hash          String
-  firstName     String   @map("first_name")
-  lastName      String   @map("last_name")
-  emailVerified Boolean  @map("email_verified")
+    id            String   @id @default(uuid())
+    createdAt     DateTime @default(now()) @map("created_at")
+    updatedAt     DateTime @updatedAt @map("updated_at")
+    email         String   @unique
+    hash          String
+    firstName     String   @map("first_name")
+    lastName      String   @map("last_name")
+    emailVerified Boolean  @map("email_verified")
 
-  @@map("users")
+    @@map("users")
 }
 
 model Schedule {
-  id        String   @id @default(uuid())
-  userId    String   @map("user_id")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  quarterId Int      @map("quarter_id")
-  data      Json
+    id        String   @id @default(uuid())
+    userId    String   @map("user_id")
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+    quarterId Int      @map("quarter_id")
+    data      Json
 
-  @@map("schedules")
+    @@map("schedules")
 }
 
 model Quarter {
-  id          Int       @id @default(autoincrement())
-  year        Int       @db.SmallInt
-  season      String
-  dateUpdated DateTime  @map("date_updated") @db.Timestamptz()
-  // not a literal column in DB. Just describes relationship
-  Subject     Subject[]
+    id          Int       @id @default(autoincrement())
+    year        Int       @db.SmallInt
+    season      String
+    dateUpdated DateTime  @map("date_updated") @db.Timestamptz()
+    // not a literal column in DB. Just describes relationship
+    Subject     Subject[]
 
-  @@map("quarters")
+    @@map("quarters")
 }
 
 model Subject {
-  subjectId String   @id @default(uuid()) @map("subject_id")
-  name      String   @unique
-  quarterId Int      @map("quarter_id")
-  // not literal columns in DB. Just describes relationship
-  quarters  Quarter  @relation(fields: [quarterId], references: [id], onDelete: Cascade)
-  courses   Course[]
+    subjectId String   @id @default(uuid()) @map("subject_id")
+    name      String   @unique
+    quarterId Int      @map("quarter_id")
+    // not literal columns in DB. Just describes relationship
+    quarters  Quarter  @relation(fields: [quarterId], references: [id], onDelete: Cascade)
+    courses   Course[]
 
-  @@map("subjects")
+    @@map("subjects")
 }
 
 model Course {
-  courseId  String    @id @default(uuid()) @map("course_id")
-  name      String
-  subjectId String    @map("subject_id")
-  // not literal columns in DB. Just describes relationship
-  subjects  Subject   @relation(fields: [subjectId], references: [subjectId], onDelete: Cascade)
-  sections  Section[]
+    courseId  String    @id @default(uuid()) @map("course_id")
+    name      String
+    subjectId String    @map("subject_id")
+    // not literal columns in DB. Just describes relationship
+    subjects  Subject   @relation(fields: [subjectId], references: [subjectId], onDelete: Cascade)
+    sections  Section[]
 
-  @@map("courses")
+    @@map("courses")
 }
 
 model Section {
-  sectionId    String @id @default(uuid()) @map("section_id")
-  courseId     String @map("course_id")
-  callNumber   Int    @map("call_number")
-  sectionTitle String @map("section_title")
-  creditHours  Int    @map("credit_hours") @db.SmallInt
-  activity     String
-  modality     String
-  days         String
-  time         String
-  location     String
-  instructor   String
-  status       String
-  // not a literal column in DB. Just describes relationship
-  courses      Course @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
+    sectionId         String  @id @default(uuid()) @map("section_id")
+    courseId          String  @map("course_id")
+    callNumber        Int     @map("call_number")
+    sectionTitle      String  @map("section_title")
+    creditHours       Int     @map("credit_hours") @db.SmallInt
+    activity          String
+    modality          String
+    days              String
+    timeStart         String
+    timeStop          String
+    location          String
+    instructor        String
+    status            String
+    isCombined        Boolean @map("is_combined")
+    combinedDays      String  @map("combined_days")
+    combinedTimeStart String  @map("combined_time_start")
+    combinedTimeStop  String  @map("combined_time_stop")
+    combinedLocation  String  @map("combined_location")
+    note              String
+    // not a literal column in DB. Just describes relationship
+    courses           Course  @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
 
-  @@map("sections")
+    @@map("sections")
 }
