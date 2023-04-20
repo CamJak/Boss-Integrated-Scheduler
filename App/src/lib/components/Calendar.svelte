@@ -183,7 +183,6 @@
 			}, 3000);
 		}
 	}
-
 </script>
 
 <div class="px-32 dark:text-white flex flex-row gap-6">
@@ -197,9 +196,15 @@
 			<option value="" />
 			<option value="CSC 132 - Something idk">CSC -132 THE SCIENCE OF COMPUTING III</option>
 		</select>
-		<button on:click={() => addSection(testSection1)} class="rounded-full bg-blue-400 p-2">Add Test Section 1</button>
-		<button on:click={() => addSection(testSection2)} class="rounded-full bg-blue-400 p-2">Add Test Section 2</button>
-		<button on:click={() => addSection(testSection3)} class="rounded-full bg-blue-400 p-2">Add Test Section 3</button>
+		<button on:click={() => addSection(testSection1)} class="rounded-full bg-blue-400 p-2"
+			>Add Test Section 1</button
+		>
+		<button on:click={() => addSection(testSection2)} class="rounded-full bg-blue-400 p-2"
+			>Add Test Section 2</button
+		>
+		<button on:click={() => addSection(testSection3)} class="rounded-full bg-blue-400 p-2"
+			>Add Test Section 3</button
+		>
 	</div>
 
 	<!-- Our nice calendar component -->
@@ -215,15 +220,23 @@
 				<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0">
 					<h1>{section.title}</h1>
 					<h2>{section.callNumber}</h2>
-					<button on:click={() => rmvSection(section)} class="invisible group-hover:visible bg-red-600 rounded-lg absolute z-10 top-0 right-0 p-2 text-black">X</button>
+					<button
+						on:click={() => rmvSection(section)}
+						class="invisible group-hover:visible bg-red-600 rounded-lg absolute z-10 top-0 right-0 p-2 text-black"
+						>X</button
+					>
 				</div>
 			{/each}
 		</div>
 		<!-- Cool little button for clearing calendar -->
 		{#if clearing}
-		<button on:click={confirmClear} class="rounded-full bg-red-600 p-2 w-full">Are you sure?</button>
+			<button on:click={confirmClear} class="rounded-full bg-red-600 p-2 w-full"
+				>Are you sure?</button
+			>
 		{:else}
-		<button on:click={confirmClear} class="rounded-full bg-blue-400 p-2 w-full">Clear Calendar</button>
+			<button on:click={confirmClear} class="rounded-full bg-blue-400 p-2 w-full"
+				>Clear Calendar</button
+			>
 		{/if}
 	</div>
 </div>
