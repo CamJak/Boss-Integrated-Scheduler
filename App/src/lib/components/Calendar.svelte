@@ -56,7 +56,7 @@
 
 	let testSection2: Section = {
 		title: 'CSC -132 -002 THE SCIENCE OF COMPUTING III',
-		callNumber: '20581',
+		callNumber: '20582',
 		status: 'closed',
 		activity: 'lecture',
 		modality: 'Face to face',
@@ -91,6 +91,12 @@
 		combinedTimeStop: '18:00',
 		combinedLocation: 'UNVH 134'
 	};
+
+	let availableSections = [
+		testSection1,
+		testSection2,
+		testSection3
+	]
 
 	// initialize empty list for added sections
 	let addedSections: Section[] = [];
@@ -130,9 +136,12 @@
 		}
 	}
 
+	// function to remove event from calendar component by title
 	function rmvEvent(e: string) {
-		// remove event from calendar
+		// pull all events from calendar component
 		let events: Event[] = ec.getEvents();
+		// if the title of the event matches the title of the event to be removed, remove it
+		// titles are specific to individual sections, so this should be fine
 		for (let i = 0; i < events.length; i++) {
 			if (events[i].title == e) {
 				ec.removeEventById(events[i].id);
@@ -142,14 +151,17 @@
 
 	// function to parse Section model and display it on the calendar appropriately!
 	function addSection(s: Section) {
-		// add the section to the calendar
-		addEvent(s.days, s.timeStart, s.timeStop, s.title);
-		// add the section to the list of added sections
-		addedSections.push(s);
-		addedSections = addedSections;
-		// if section is combined, add the combined days to the calendar as well
-		if (s.isCombined) {
-			addEvent(s.combinedDays, s.combinedTimeStart, s.combinedTimeStop, s.title);
+		// check if section is already added and if so, do not add it again
+		if (addedSections.includes(s) == false) {
+			// add the section to the calendar
+			addEvent(s.days, s.timeStart, s.timeStop, s.title);
+			// add the section to the list of added sections
+			addedSections.push(s);
+			addedSections = addedSections;
+			// if section is combined, add the combined days to the calendar as well
+			if (s.isCombined) {
+				addEvent(s.combinedDays, s.combinedTimeStart, s.combinedTimeStop, s.title);
+			}
 		}
 	}
 
@@ -171,7 +183,7 @@
 	}
 
 	// function to check if user wants to clear the calendar
-	// switch back to false after user confirms or some time passes (3 sec)
+	// switch back to false after user confirms or some time passes (1.5 sec)
 	function confirmClear() {
 		if (clearing) {
 			clearCalendar();
@@ -180,7 +192,7 @@
 			clearing = true;
 			setTimeout(() => {
 				clearing = false;
-			}, 3000);
+			}, 1500);
 		}
 	}
 </script>
@@ -196,15 +208,17 @@
 			<option value="" />
 			<option value="CSC 132 - Something idk">CSC -132 THE SCIENCE OF COMPUTING III</option>
 		</select>
-		<button on:click={() => addSection(testSection1)} class="rounded-full bg-blue-400 p-2"
-			>Add Test Section 1</button
-		>
-		<button on:click={() => addSection(testSection2)} class="rounded-full bg-blue-400 p-2"
-			>Add Test Section 2</button
-		>
-		<button on:click={() => addSection(testSection3)} class="rounded-full bg-blue-400 p-2"
-			>Add Test Section 3</button
-		>
+		{#each availableSections as section}
+			<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0">
+				<h1>{section.title}</h1>
+				<h2>{section.callNumber}</h2>
+				<button
+					on:click={() => addSection(section)}
+					class="invisible group-hover:visible bg-green-600 rounded-lg absolute z-10 top-0 right-0 p-2 text-black"
+					>+</button
+				>
+			</div>
+		{/each}
 	</div>
 
 	<!-- Our nice calendar component -->
