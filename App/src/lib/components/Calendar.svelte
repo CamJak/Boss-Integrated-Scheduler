@@ -130,6 +130,16 @@
 		}
 	}
 
+	function rmvEvent(e: string) {
+		// remove event from calendar
+		let events: Event[] = ec.getEvents();
+		for (let i = 0; i < events.length; i++) {
+			if (events[i].title == e) {
+				ec.removeEventById(events[i].id);
+			}
+		}
+	}
+
 	// function to parse Section model and display it on the calendar appropriately!
 	function addSection(s: Section) {
 		// add the section to the calendar
@@ -143,50 +153,77 @@
 		}
 	}
 
+	function rmvSection(s: Section) {
+		// remove the section from the calendar
+		// remove the section from the list of added sections
+		addedSections.splice(addedSections.indexOf(s), 1);
+		addedSections = addedSections;
+		rmvEvent(s.title);
+	}
+
+	// initialize clearing state to false
+	let clearing: boolean = false;
+
 	// function to clear all events from the calendar
 	function clearCalendar() {
 		options.events = [];
+		addedSections = [];
 	}
+
+	// function to check if user wants to clear the calendar
+	// switch back to false after user confirms or some time passes (3 sec)
+	function confirmClear() {
+		if (clearing) {
+			clearCalendar();
+			clearing = false;
+		} else {
+			clearing = true;
+			setTimeout(() => {
+				clearing = false;
+			}, 3000);
+		}
+	}
+
 </script>
 
-<div class="px-32 dark:text-white grid grid-cols-6 gap-6">
+<div class="px-32 dark:text-white flex flex-row gap-6">
 	<!-- Left side section for 'section' selection (BOSS integration happens here) -->
-	<div class="border-2 border-slate-400 rounded-lg space-y-4 grid content-start">
-		<select name="subject" id="subject" class="w-[200px]">
+	<div class="border-2 border-slate-400 rounded-lg space-y-2 basis-1/6 flex flex-col">
+		<select name="subject" id="subject" class="w-full text-black">
 			<option value="" />
 			<option value="Computer Science">Computer Science</option>
 		</select>
-		<select name="course" id="course" class="w-[200px]">
+		<select name="course" id="course" class="w-full text-black">
 			<option value="" />
 			<option value="CSC 132 - Something idk">CSC -132 THE SCIENCE OF COMPUTING III</option>
 		</select>
-		<button on:click={() => addSection(testSection1)} class="rounded-full bg-blue-400 p-2"
-			>Add Test Section 1</button
-		>
-		<button on:click={() => addSection(testSection2)} class="rounded-full bg-blue-400 p-2"
-			>Add Test Section 2</button
-		>
-		<button on:click={() => addSection(testSection3)} class="rounded-full bg-blue-400 p-2"
-			>Add Test Section 3</button
-		>
-		<button on:click={clearCalendar} class="rounded-full bg-blue-400 p-2">Clear Calendar</button>
+		<button on:click={() => addSection(testSection1)} class="rounded-full bg-blue-400 p-2">Add Test Section 1</button>
+		<button on:click={() => addSection(testSection2)} class="rounded-full bg-blue-400 p-2">Add Test Section 2</button>
+		<button on:click={() => addSection(testSection3)} class="rounded-full bg-blue-400 p-2">Add Test Section 3</button>
 	</div>
 
 	<!-- Our nice calendar component -->
-	<div class="col-start-2 col-end-6">
+	<div class="basis-5/6">
 		<Calendar bind:this={ec} {plugins} {options} />
 	</div>
 
 	<!-- Right side section for showing 'sections' that are added to calendar -->
-	<div class="border-2 border-slate-400 rounded-lg">
+	<div class="border-2 border-slate-400 rounded-lg basis-1/6 flex flex-col">
 		<!-- Display added sections in a scrollable bar -->
-		<div class="overflow-y-scroll h-[700px]">
+		<div class="overflow-y-auto h-[700px]">
 			{#each addedSections as section}
-				<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400">
+				<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0">
 					<h1>{section.title}</h1>
 					<h2>{section.callNumber}</h2>
+					<button on:click={() => rmvSection(section)} class="invisible group-hover:visible bg-red-600 rounded-lg absolute z-10 top-0 right-0 p-2 text-black">X</button>
 				</div>
 			{/each}
 		</div>
+		<!-- Cool little button for clearing calendar -->
+		{#if clearing}
+		<button on:click={confirmClear} class="rounded-full bg-red-600 p-2 w-full">Are you sure?</button>
+		{:else}
+		<button on:click={confirmClear} class="rounded-full bg-blue-400 p-2 w-full">Clear Calendar</button>
+		{/if}
 	</div>
 </div>
