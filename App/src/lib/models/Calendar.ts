@@ -58,7 +58,7 @@ const defaultConfig = {
 };
 
 export interface Section {
-	title: string;
+	sectionTitle: string;
 	callNumber: string;
 	status: string;
 	activity: string;

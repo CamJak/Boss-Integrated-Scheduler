@@ -54,7 +54,7 @@ def run_scraper(term, output_to_json: bool = False, num_fails: int = 0):
             if DEBUG:
                 print(f"Beginning work on subject: {subject}")
             # navigate to tab of current subject
-            xpath = f"//option[ contains (text(), \"{subject}\" ) ]"
+            xpath = f"//option[ starts-with (text(), \"{subject}\" ) ]"
             driver.find_element('xpath', xpath).click()
             driver.find_element('xpath', "//input[ @type='submit' ]").click()
             # grab list of courses within each subject
@@ -65,7 +65,7 @@ def run_scraper(term, output_to_json: bool = False, num_fails: int = 0):
                 if DEBUG:
                     print(f"Beginning work on course: {course}")
                 # navigate to tab of current course
-                xpath = f"//option[ contains (text(), \"{course}\" ) ]"
+                xpath = f"//option[ starts-with (text(), \"{course}\" ) ]"
                 driver.find_element('xpath', xpath).click()
                 driver.find_element('xpath', "//input[ @type='submit' ]").click()
                 # grab classes from course using scrape

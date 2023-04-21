@@ -2,6 +2,7 @@
 	import Calendar from '@event-calendar/core';
 	import TimeGrid from '@event-calendar/time-grid';
 	import { createCalendarConfig, type Section } from '$lib/models/Calendar';
+	import data from '$lib/outputCleaned.json';
 
 	// function used to get the monday of the current week
 	// need this because the calendar is meant for full schedules and we want to convert it to just weekly (ignoring dates)
@@ -34,73 +35,7 @@
 		})
 	};
 
-	// Hardcoded sections for testing purposes :)
-	// Made in same format as the scraper's output
 	// TODO: Replace with actual data from API
-	let data: any = {
-		"Computer Science": {
-			"The Science of Computing III": [
-				{
-					title: 'CSC -132 -001 THE SCIENCE OF COMPUTING III',
-					callNumber: '20581',
-					status: 'closed',
-					activity: 'lecture',
-					modality: 'Face to face',
-					days: 'MWF',
-					timeStart: '14:00',
-					timeStop: '15:15',
-					location: 'IESB 205',
-					instructor: 'KIREMIRE A',
-					creditHours: '3.00',
-					isCombined: false,
-					combinedDays: '',
-					combinedTimeStart: '',
-					combinedTimeStop: '',
-					combinedLocation: ''
-				},
-				{
-					title: 'CSC -132 -002 THE SCIENCE OF COMPUTING III',
-					callNumber: '20582',
-					status: 'closed',
-					activity: 'lecture',
-					modality: 'Face to face',
-					days: 'TR',
-					timeStart: '08:00',
-					timeStop: '09:50',
-					location: 'IESB 205',
-					instructor: 'CHERRY K',
-					creditHours: '3.00',
-					isCombined: false,
-					combinedDays: '',
-					combinedTimeStart: '',
-					combinedTimeStop: '',
-					combinedLocation: ''
-				}
-			]
-		},
-		"Electrical Engineering": {
-			"Embedded Systems": [
-				{
-					title: 'ELEN-423 -001 EMBEDDED SYSTEMS',
-					callNumber: '30775',
-					status: 'Closed',
-					activity: 'Combined lecture and lab',
-					modality: 'Face to face',
-					days: 'TR',
-					timeStart: '12:00',
-					timeStop: '13:15',
-					location: 'IESB 224',
-					instructor: 'GATES M',
-					creditHours: ' 3.00',
-					isCombined: true,
-					combinedDays: 'T',
-					combinedTimeStart: '14:00',
-					combinedTimeStop: '18:00',
-					combinedLocation: 'UNVH 134'
-				}
-			]
-		}
-	}
 
 	// variables to bind to select elements
 	let selectedSubject: string = "";
@@ -185,13 +120,13 @@
 		// check if section is already added and if so, do not add it again
 		if (addedSections.includes(s) == false) {
 			// add the section to the calendar
-			addEvent(s.days, s.timeStart, s.timeStop, s.title);
+			addEvent(s.days, s.timeStart, s.timeStop, s.sectionTitle);
 			// add the section to the list of added sections
 			addedSections.push(s);
 			addedSections = addedSections;
 			// if section is combined, add the combined days to the calendar as well
 			if (s.isCombined) {
-				addEvent(s.combinedDays, s.combinedTimeStart, s.combinedTimeStop, s.title);
+				addEvent(s.combinedDays, s.combinedTimeStart, s.combinedTimeStop, s.sectionTitle);
 			}
 		}
 	}
@@ -201,7 +136,7 @@
 		// remove the section from the list of added sections
 		addedSections.splice(addedSections.indexOf(s), 1);
 		addedSections = addedSections;
-		rmvEvent(s.title);
+		rmvEvent(s.sectionTitle);
 	}
 
 	// initialize clearing state to false
@@ -250,21 +185,29 @@
 			{/if}
 		{/key}
 		<!-- Section selection -->
+		<div class="overflow-y-auto h-[675px]">
 		{#key currSubject + currCourse}
 			{#if currCourse != "" && currSubject != ""}
 				{#each data[currSubject][currCourse] as section}
-					<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0">
-						<h1>{section.title}</h1>
+					<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0 m-2 text-sm">
+						<h1>{section.sectionTitle}</h1>
+						{#if section.modality.includes('Online')}
+							<h2 class="">ONLINE</h2>
+						{:else}
+							<h2>{section.days} {section.timeStart}-{section.timeStop}</h2>
+						{/if}
+						<h2>{section.instructor}</h2>
 						<h2>{section.callNumber}</h2>
 						<button
 							on:click={() => addSection(section)}
-							class="invisible group-hover:visible bg-green-600 rounded-lg absolute z-10 top-0 right-0 p-2 text-black"
+							class="invisible group-hover:visible bg-green-600 rounded-lg absolute z-10 top-0 right-0 p-1 text-black text-lg"
 							>+</button
 						>
 					</div>
 				{/each}
 			{/if}
 		{/key}
+		</div>
 	</div>
 
 	<!-- Our nice calendar component -->
@@ -277,8 +220,8 @@
 		<!-- Display added sections in a scrollable bar -->
 		<div class="overflow-y-auto h-[700px]">
 			{#each addedSections as section}
-				<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0">
-					<h1>{section.title}</h1>
+				<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0 m-2">
+					<h1>{section.sectionTitle}</h1>
 					<h2>{section.callNumber}</h2>
 					<button
 						on:click={() => rmvSection(section)}
