@@ -35,6 +35,8 @@
 	};
 
 	// Hardcoded sections for testing purposes :)
+	// Made in same format as the scraper's output
+	// TODO: Replace with actual data from API
 	let data: any = {
 		"Computer Science": {
 			"The Science of Computing III": [
@@ -100,23 +102,30 @@
 		}
 	}
 
-	// variables to hold the selected subject
+	// variables to bind to select elements
 	let selectedSubject: string = "";
 	let selectedCourse: string = "";
+	// variables to store currently selected subject and course
+	// needs to be unbound to keep key errors from occuring due to weird selections
 	let currSubject: string = "";
 	let currCourse: string = "";
 
 	// functions to handle subject and course selection events
 	function selectSubject() {
+		// sets selected subject
 		currSubject = selectedSubject;
+		// clears course selections
 		currCourse = "";
 		selectedCourse = "";
+		// updates svelte elements
 		currSubject = currSubject;
 		currCourse = currCourse;
 	}
 
 	function selectCourse() {
+		// sets selected course
 		currCourse = selectedCourse;
+		// updates svelte elements
 		currCourse = currCourse;
 	}
 
@@ -222,12 +231,14 @@
 <div class="px-20 dark:text-white flex flex-row gap-6">
 	<!-- Left side section for 'section' selection (BOSS integration happens here) -->
 	<div class="border-2 border-slate-400 rounded-lg space-y-2 basis-1/6 flex flex-col">
+		<!-- Subject selection -->
 		<select bind:value={selectedSubject} on:change={() => selectSubject()} name="subject" id="subject" class="w-full text-black">
 			<option value="" />
 			{#each Object.keys(data) as subject}
 				<option value="{subject}">{subject}</option>
 			{/each}
 		</select>
+		<!-- Course selection -->
 		{#key currSubject}
 			{#if currSubject != ""}
 				<select bind:value={selectedCourse} on:change={() => selectCourse()} name="course" id="course" class="w-full text-black">
@@ -238,6 +249,7 @@
 				</select>
 			{/if}
 		{/key}
+		<!-- Section selection -->
 		{#key currSubject + currCourse}
 			{#if currCourse != "" && currSubject != ""}
 				{#each data[currSubject][currCourse] as section}
