@@ -35,68 +35,90 @@
 	};
 
 	// Hardcoded sections for testing purposes :)
-	let testSection1: Section = {
-		title: 'CSC -132 -001 THE SCIENCE OF COMPUTING III',
-		callNumber: '20581',
-		status: 'closed',
-		activity: 'lecture',
-		modality: 'Face to face',
-		days: 'MWF',
-		timeStart: '14:00',
-		timeStop: '15:15',
-		location: 'IESB 205',
-		instructor: 'KIREMIRE A',
-		creditHours: '3.00',
-		isCombined: false,
-		combinedDays: '',
-		combinedTimeStart: '',
-		combinedTimeStop: '',
-		combinedLocation: ''
-	};
+	let data: any = {
+		"Computer Science": {
+			"The Science of Computing III": [
+				{
+					title: 'CSC -132 -001 THE SCIENCE OF COMPUTING III',
+					callNumber: '20581',
+					status: 'closed',
+					activity: 'lecture',
+					modality: 'Face to face',
+					days: 'MWF',
+					timeStart: '14:00',
+					timeStop: '15:15',
+					location: 'IESB 205',
+					instructor: 'KIREMIRE A',
+					creditHours: '3.00',
+					isCombined: false,
+					combinedDays: '',
+					combinedTimeStart: '',
+					combinedTimeStop: '',
+					combinedLocation: ''
+				},
+				{
+					title: 'CSC -132 -002 THE SCIENCE OF COMPUTING III',
+					callNumber: '20582',
+					status: 'closed',
+					activity: 'lecture',
+					modality: 'Face to face',
+					days: 'TR',
+					timeStart: '08:00',
+					timeStop: '09:50',
+					location: 'IESB 205',
+					instructor: 'CHERRY K',
+					creditHours: '3.00',
+					isCombined: false,
+					combinedDays: '',
+					combinedTimeStart: '',
+					combinedTimeStop: '',
+					combinedLocation: ''
+				}
+			]
+		},
+		"Electrical Engineering": {
+			"Embedded Systems": [
+				{
+					title: 'ELEN-423 -001 EMBEDDED SYSTEMS',
+					callNumber: '30775',
+					status: 'Closed',
+					activity: 'Combined lecture and lab',
+					modality: 'Face to face',
+					days: 'TR',
+					timeStart: '12:00',
+					timeStop: '13:15',
+					location: 'IESB 224',
+					instructor: 'GATES M',
+					creditHours: ' 3.00',
+					isCombined: true,
+					combinedDays: 'T',
+					combinedTimeStart: '14:00',
+					combinedTimeStop: '18:00',
+					combinedLocation: 'UNVH 134'
+				}
+			]
+		}
+	}
 
-	let testSection2: Section = {
-		title: 'CSC -132 -002 THE SCIENCE OF COMPUTING III',
-		callNumber: '20582',
-		status: 'closed',
-		activity: 'lecture',
-		modality: 'Face to face',
-		days: 'TR',
-		timeStart: '08:00',
-		timeStop: '09:50',
-		location: 'IESB 205',
-		instructor: 'CHERRY K',
-		creditHours: '3.00',
-		isCombined: false,
-		combinedDays: '',
-		combinedTimeStart: '',
-		combinedTimeStop: '',
-		combinedLocation: ''
-	};
+	// variables to hold the selected subject
+	let selectedSubject: string = "";
+	let selectedCourse: string = "";
+	let currSubject: string = "";
+	let currCourse: string = "";
 
-	let testSection3: Section = {
-		title: 'ELEN-423 -001 EMBEDDED SYSTEMS',
-		callNumber: '30775',
-		status: 'Closed',
-		activity: 'Combined lecture and lab',
-		modality: 'Face to face',
-		days: 'TR',
-		timeStart: '12:00',
-		timeStop: '13:15',
-		location: 'IESB 224',
-		instructor: 'GATES M',
-		creditHours: ' 3.00',
-		isCombined: true,
-		combinedDays: 'T',
-		combinedTimeStart: '14:00',
-		combinedTimeStop: '18:00',
-		combinedLocation: 'UNVH 134'
-	};
+	// functions to handle subject and course selection events
+	function selectSubject() {
+		currSubject = selectedSubject;
+		currCourse = "";
+		selectedCourse = "";
+		currSubject = currSubject;
+		currCourse = currCourse;
+	}
 
-	let availableSections = [
-		testSection1,
-		testSection2,
-		testSection3
-	]
+	function selectCourse() {
+		currCourse = selectedCourse;
+		currCourse = currCourse;
+	}
 
 	// initialize empty list for added sections
 	let addedSections: Section[] = [];
@@ -197,28 +219,40 @@
 	}
 </script>
 
-<div class="px-32 dark:text-white flex flex-row gap-6">
+<div class="px-20 dark:text-white flex flex-row gap-6">
 	<!-- Left side section for 'section' selection (BOSS integration happens here) -->
 	<div class="border-2 border-slate-400 rounded-lg space-y-2 basis-1/6 flex flex-col">
-		<select name="subject" id="subject" class="w-full text-black">
+		<select bind:value={selectedSubject} on:change={() => selectSubject()} name="subject" id="subject" class="w-full text-black">
 			<option value="" />
-			<option value="Computer Science">Computer Science</option>
+			{#each Object.keys(data) as subject}
+				<option value="{subject}">{subject}</option>
+			{/each}
 		</select>
-		<select name="course" id="course" class="w-full text-black">
-			<option value="" />
-			<option value="CSC 132 - Something idk">CSC -132 THE SCIENCE OF COMPUTING III</option>
-		</select>
-		{#each availableSections as section}
-			<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0">
-				<h1>{section.title}</h1>
-				<h2>{section.callNumber}</h2>
-				<button
-					on:click={() => addSection(section)}
-					class="invisible group-hover:visible bg-green-600 rounded-lg absolute z-10 top-0 right-0 p-2 text-black"
-					>+</button
-				>
-			</div>
-		{/each}
+		{#key currSubject}
+			{#if currSubject != ""}
+				<select bind:value={selectedCourse} on:change={() => selectCourse()} name="course" id="course" class="w-full text-black">
+					<option value="" />
+					{#each Object.keys(data[currSubject]) as course}
+						<option value="{course}">{course}</option>
+					{/each}
+				</select>
+			{/if}
+		{/key}
+		{#key currSubject + currCourse}
+			{#if currCourse != "" && currSubject != ""}
+				{#each data[currSubject][currCourse] as section}
+					<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0">
+						<h1>{section.title}</h1>
+						<h2>{section.callNumber}</h2>
+						<button
+							on:click={() => addSection(section)}
+							class="invisible group-hover:visible bg-green-600 rounded-lg absolute z-10 top-0 right-0 p-2 text-black"
+							>+</button
+						>
+					</div>
+				{/each}
+			{/if}
+		{/key}
 	</div>
 
 	<!-- Our nice calendar component -->
