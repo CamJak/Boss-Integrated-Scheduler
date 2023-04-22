@@ -91,6 +91,7 @@ def run_scraper(term, output_to_json: bool = False, num_fails: int = 0):
             run_scraper(term, output_to_json, num_fails + 1)
         else:
             print("Max number of fails reached! Exiting...")
+            exit(1)
     else:
         print("Finished Successfully!")
         if DEBUG:
@@ -104,6 +105,11 @@ def run_scraper(term, output_to_json: bool = False, num_fails: int = 0):
                 json.dump(all_data, outfile)
 
         return all_data
+    finally:
+        # if the program errors out 
+        print("------End Scrape!------")
+        elapsed_time = (time.perf_counter() - start_time)
+        print(f"Time elapsed(s): {elapsed_time}")
 
 # This code will not run if you import this file
 #  It will only run if you do python3 seleniumNavigator.py
