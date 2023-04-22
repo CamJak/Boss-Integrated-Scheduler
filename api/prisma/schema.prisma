@@ -73,8 +73,8 @@ model Section {
     activity          String
     modality          String
     days              String
-    timeStart         String
-    timeStop          String
+    timeStart         String  @map("time_start")
+    timeStop          String  @map("time_stop")
     location          String
     instructor        String
     status            String
