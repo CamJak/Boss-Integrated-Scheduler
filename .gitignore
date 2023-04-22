@@ -5,6 +5,7 @@
 # ignore scraper output (should be stored in DB)
 *\output.json
 *\outputCleaned.json
+WebScraper/.env
 
 # ignore any node_modules
 App/node_modules

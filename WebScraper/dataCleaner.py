@@ -4,7 +4,7 @@ import re
 
 
 # Script to clean the data from the web scraper
-def clean(scraperData):
+def clean(scraperData, output_to_json: bool = False):
     # Iterate through the dictionary and clean the data
     for subject in scraperData:
         for course in scraperData[subject]:
@@ -112,18 +112,27 @@ def clean(scraperData):
                 scraperData[subject][course][i] = cleanSection
     
     # Print the data to output json file
-    try:
-        file = open("outputCleaned.json", "w")
-    except:
-        print("Error: File not found")
-        exit(1)
+    if output_to_json:
 
-    # Write the json data to a file
-    try:
-        json.dump(scraperData, file, indent=2)
-    except:
-        print("Error: File is not in json format")
-        exit(1)
+        try:
+            file = open("outputCleaned.json", "w")
+        except:
+            print("Error: File not found")
+            exit(1)
+
+        # Write the json data to a file
+        try:
+            json.dump(scraperData, file, indent=2)
+        except:
+            print("Error: File is not in json format")
+            exit(1)
     
-    # Close the file
-    file.close()
+        # Close the file
+        file.close()
+    return scraperData
+
+if __name__ == "__main__":
+    f = open("output.json")
+    data = json.load(f)
+    clean(data, output_to_json=True)
+

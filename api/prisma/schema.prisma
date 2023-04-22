@@ -44,7 +44,7 @@ model Quarter {
 
 model Subject {
     subjectId String   @id @default(uuid()) @map("subject_id")
-    name      String   @unique
+    name      String
     quarterId Int      @map("quarter_id")
     // not literal columns in DB. Just describes relationship
     quarters  Quarter  @relation(fields: [quarterId], references: [id], onDelete: Cascade)
@@ -73,8 +73,8 @@ model Section {
     activity          String
     modality          String
     days              String
-    timeStart         String
-    timeStop          String
+    timeStart         String  @map("time_start")
+    timeStop          String  @map("time_stop")
     location          String
     instructor        String
     status            String
