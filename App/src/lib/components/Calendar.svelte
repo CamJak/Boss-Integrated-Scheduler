@@ -67,6 +67,17 @@
 	// initialize empty list for added sections
 	let addedSections: Section[] = [];
 
+	// list of possible section colors
+	let colors = [
+		'#2D41F0',
+		'#F02D2D',
+		'#F0A02D',
+		'#D5C747',
+		'#2EC62E',
+	]
+
+	let colorIndex: number = 0;
+
 	function addEvent(days: string, timeStart: string, timeStop: string, title: string) {
 		var eventDay: string;
 
@@ -96,10 +107,11 @@
 				end: eventDay + ' ' + timeStop,
 				resourceId: 1,
 				title: title,
-				color: '#2D41F0'
+				color: colors[colorIndex]
 			};
 			ec.addEvent(newEvent);
 		}
+		colorIndex = (colorIndex + 1) % colors.length;
 	}
 
 	// function to remove event from calendar component by title
