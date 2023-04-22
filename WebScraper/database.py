@@ -4,6 +4,7 @@ from psycopg2.extensions import cursor, connection
 from dotenv import load_dotenv
 from os import environ
 from schema import Schema, SchemaError
+import json
 
 @dataclass
 class ConnectionInfo:
@@ -12,6 +13,40 @@ class ConnectionInfo:
     DB_PASS: str
     DB_HOST: str
     DB_PORT: str # could also be a string
+
+class Query:
+    query_string: str
+
+    def __init__(self):
+        self.query_string = ""
+
+    def insert(self, table: str):
+        self.query_string = f"INSERT INTO {table}"
+        return self
+
+    def columns(self, columns: list[str]):
+        cols = " ("
+        for i, s in enumerate(columns):
+            cols += f"{s}"
+            if i == len(columns) - 1:
+                cols += ")"
+            else:
+                cols += ", "
+
+        self.query_string += cols
+        return self
+
+    def values(self, values: list[str]):
+        '''Add values to your query. String values may need single quotes included!'''
+        vals = " VALUES ("
+        for i, s in enumerate(values):
+            vals += s
+            if i == len(values) - 1:
+                vals += ")"
+            else:
+                vals += ", "
+        self.query_string += vals
+        return self
 
 class DB:
     # instance variables
@@ -38,6 +73,7 @@ class DB:
     def query(self, query: str):
         """Executes a SQL query. Be careful with this."""
         self.cur.execute(query)
+        return self.cur
 
     def close_connection(self):
         self.conn.close()
@@ -66,15 +102,57 @@ def get_connection_info() -> ConnectionInfo:
 
     return connection_info
 
-def insert_to_database(db: DB, cleaned_data={}):
+def load_json(fn: str = "outputCleaned.json"):
+    with open(fn) as json_file:
+        return json.load(json_file)
+
+
+def insert_to_database(db: DB, quarter: str, cleaned_data={}):
 
     print("Made it here!")
-    # sleep(5)
-    # print(cleaned_data)
+
+    season, year = quarter.split(" ")[0], quarter.split(" ")[1]
+    
+    # generate the Quarter
+    quarter_query = f'''INSERT INTO quarters (year, season, date_updated) VALUES ({year}, '{season}', NOW())'''
+    db.query(quarter_query)
+    db.commit()
+
+    quarter_id: int = db.query(f'''SELECT id FROM quarters
+                ORDER BY id DESC''')\
+                        .fetchall()[0][0]
+
+    # q = Query()\
+    #         .insert("quarters")\
+    #         .columns(["year", "season", "date_updated"])\
+    #         .values([f"{year}", f"'{season}'", "NOW()"])\
+    #         .query_string
+
+    # db.query(q)
+    db.commit()
 
     if cleaned_data == {}:
         # if the data is not provided, check for the cleaned output json
-        pass
+        cleaned_data = load_json()
+
+    for subject_name, courses in cleaned_data.items():
+        # create a new subject in the database
+        db.query(Query().insert("subjects").columns(["subject_id", "name", "quarter_id"]).values(["gen_random_uuid()", f"'{subject_name}'", f"{quarter_id}"]).query_string)
+        db.commit()
+        print(subject_name)
+        s_id: str = db.query(f'''SELECT subject_id FROM subjects FROM subjects FROM subjects
+                             WHERE quarter_id = \'{quarter_id}\'''')\
+                                     .fetchall()[0][0]
+
+        for course_name, sections in courses.items():
+            # create a new course in the database
+            db.query(Query().insert("courses").columns(["course_id", "name", "subject_id"]).values(["gen_random_uuid()", f"{course_name}", f"'{s_id}'"]).query_string)
+            db.commit()
+
+            # c_id: str = db
+            for section in sections:
+                pass
+
 
     # at this point, cleaned_data should be defined in some way
     

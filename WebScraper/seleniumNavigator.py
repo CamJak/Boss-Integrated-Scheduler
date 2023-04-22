@@ -81,6 +81,7 @@ def run_scraper(term, output_to_json: bool = False, num_fails: int = 0):
             select_term(driver, term)
     except KeyboardInterrupt:
         print(f"KeyboardInterrupt after {num_fails} fails! Exiting...")
+        exit(1)
     except Exception as e:
         print("An exception occured!")
         print(f"{num_fails} fails so far")
@@ -92,7 +93,6 @@ def run_scraper(term, output_to_json: bool = False, num_fails: int = 0):
             print("Max number of fails reached! Exiting...")
     else:
         print("Finished Successfully!")
-    finally:
         if DEBUG:
             print("------End Scrape!------")
         # get time elapsed and print
