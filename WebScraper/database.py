@@ -108,8 +108,9 @@ def load_json(fn: str = "outputCleaned.json"):
 
 
 def insert_to_database(db: DB, quarter: str, cleaned_data={}):
-
-    print("Made it here!")
+    # needed for escaping apostrophes (cringe)
+    bs = "\\"
+    ap = "\'"
 
     season, year = quarter.split(" ")[0], quarter.split(" ")[1]
     
@@ -141,21 +142,34 @@ def insert_to_database(db: DB, quarter: str, cleaned_data={}):
         db.commit()
         print(subject_name)
         s_id: str = db.query(f'''SELECT subject_id FROM subjects
-                             WHERE quarter_id = \'{quarter_id}\'''')\
+                             WHERE quarter_id = \'{quarter_id}\' AND name = \'{subject_name.replace(ap, ap + ap)}\'''')\
                                      .fetchall()[0][0]
 
         for course_name, sections in courses.items():
             # create a new course in the database
-            db.query(Query().insert("courses").columns(["course_id", "name", "subject_id"]).values(["gen_random_uuid()", f"'{course_name}'", f"'{s_id}'"]).query_string)
+            db.query(Query().insert("courses").columns(["course_id", "name", "subject_id"]).values(["gen_random_uuid()", f"'{course_name.replace(f'{ap}', f'{ap}{ap}')}'", f"'{s_id}'"]).query_string)
             db.commit()
 
             c_id: str = db.query(f'''SELECT course_id FROM courses
-                                 WHERE subject_id = \'{s_id}\'''')\
+                                 WHERE subject_id = \'{s_id}\' AND name = \'{course_name.replace(ap, ap + ap)}\'''')\
                                          .fetchall()[0][0]
 
             # c_id: str = db
             for section in sections:
-                if section["sectionTitle"] and section["callNumber"]:
+                if "callNumber" in section and "sectionTitle" in section\
+                        and "creditHours" in section and "activity" in section\
+                        and "modality" in section and "days" in section\
+                        and "location" in section and "instructor" in section\
+                        and "status" in section and "combinedDays" in section\
+                        and "combinedLocation" in section\
+                        and "combinedTimeStart" in section\
+                        and "combinedTimeStop" in section\
+                        and "isCombined" in section\
+                        and "timeStart" in section\
+                        and "timeStop" in section:
+                    if section["sectionTitle"] == " ":
+                        # if properties are invalid, just skip this section
+                        continue
                     db.query(Query()\
                             .insert("sections")\
                             .columns(["section_id",
@@ -182,14 +196,14 @@ def insert_to_database(db: DB, quarter: str, cleaned_data={}):
                                 "gen_random_uuid()",
                                 f"'{c_id}'",
                                 f"'{section['callNumber']}'",
-                                f"'{section['sectionTitle']}'",
+                                f"'{section['sectionTitle'].replace(ap, ap + ap)}'",
                                 f"'{int(float(section['creditHours']))}'",
-                                f"'{section['activity']}'",
-                                f"'{section['modality']}'",
+                                f"'{section['activity'].replace(ap, ap + ap)}'",
+                                f"'{section['modality'].replace(ap, ap + ap)}'",
                                 f"'{section['days']}'",
                                 f"'{section['location']}'",
-                                f"'{section['instructor']}'",
-                                f"'{section['status']}'",
+                                f"'{section['instructor'].replace(ap, ap + ap)}'",
+                                f"'{section['status'].replace(ap, ap + ap)}'",
                                 f"'{section['combinedDays']}'",
                                 f"'{section['combinedLocation']}'",
                                 f"'{section['combinedTimeStart']}'",
