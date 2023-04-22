@@ -175,15 +175,15 @@ def insert_to_database(db: DB, quarter: str, cleaned_data={}):
                                      "combined_time_stop",
                                      "is_combined",
                                      "note",
-                                     "timeStart",
-                                     "timeStop"
+                                     "time_start",
+                                     "time_stop"
                                      ])\
                             .values([
                                 "gen_random_uuid()",
                                 f"'{c_id}'",
                                 f"'{section['callNumber']}'",
                                 f"'{section['sectionTitle']}'",
-                                f"'{section['creditHours']}'",
+                                f"'{int(float(section['creditHours']))}'",
                                 f"'{section['activity']}'",
                                 f"'{section['modality']}'",
                                 f"'{section['days']}'",
@@ -200,7 +200,6 @@ def insert_to_database(db: DB, quarter: str, cleaned_data={}):
                                 f"'{section['timeStop']}'"
                                 ]).query_string)
         
-                    db.commit()
 
 
 
