@@ -131,6 +131,20 @@
 		}
 	}
 
+	// function to get section by call number
+	// its pretty gross I know, but is there a better way?
+	function getSectionByCallNumber(callNumber: number) {
+		for (let subject of Object.keys(data)) {
+			for (let course of Object.keys(data[subject])) {
+				for (let section of data[subject][course]) {
+					if (section.callNumber == callNumber && section.title != '') {
+						return section;
+					}
+				}
+			}
+		}
+	}
+
 	function rmvSection(s: Section) {
 		// remove the section from the calendar
 		// remove the section from the list of added sections
@@ -161,6 +175,35 @@
 			}, 1500);
 		}
 	}
+
+	// initialize import string for binding with text box
+	let importString: string;
+	// function to export calendar to call numbers
+	function exportCalendar() {
+		let callNumbersArray: string[] = [];
+		let callNumbersString: string = "";
+		for (let i = 0; i < addedSections.length; i++) {
+			callNumbersArray.push(addedSections[i].callNumber);
+		}
+		// convert array to a single string with commas
+		callNumbersString = callNumbersArray.join(",");
+		// populate the text box with the call numbers
+		importString = callNumbersString;
+	}
+
+	// function to import calendar from call numbers
+	function importCalendar() {
+		// split import string into array of call numbers
+		let callNumbersArray: number[] = <number[]><unknown>importString.split(",");
+		// iterate through call numbers and add them to the calendar
+		for (let i = 0; i < callNumbersArray.length; i++) {
+			// find the section with the call number
+			let section: Section = getSectionByCallNumber(callNumbersArray[i]);
+			// add the section to the calendar
+			addSection(section);
+		}
+	}
+
 </script>
 
 <div class="px-20 dark:text-white flex flex-row gap-6">
@@ -213,6 +256,14 @@
 	<!-- Our nice calendar component -->
 	<div class="basis-5/6">
 		<Calendar bind:this={ec} {plugins} {options} />
+		<!-- Buttons for exporting and importing calendar -->
+		<button on:click={exportCalendar} class="rounded-full bg-blue-400 p-2"
+			>Export Calendar</button
+		>
+		<button on:click={importCalendar} class="rounded-full bg-blue-400 p-2"
+			>Import Calendar</button
+		>
+		<input type="text" bind:value={importString} class="text-black" placeholder="10001,10054,..."/>
 	</div>
 
 	<!-- Right side section for showing 'sections' that are added to calendar -->
