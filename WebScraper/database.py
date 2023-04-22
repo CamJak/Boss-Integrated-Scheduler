@@ -140,18 +140,68 @@ def insert_to_database(db: DB, quarter: str, cleaned_data={}):
         db.query(Query().insert("subjects").columns(["subject_id", "name", "quarter_id"]).values(["gen_random_uuid()", f"'{subject_name}'", f"{quarter_id}"]).query_string)
         db.commit()
         print(subject_name)
-        s_id: str = db.query(f'''SELECT subject_id FROM subjects FROM subjects FROM subjects
+        s_id: str = db.query(f'''SELECT subject_id FROM subjects
                              WHERE quarter_id = \'{quarter_id}\'''')\
                                      .fetchall()[0][0]
 
         for course_name, sections in courses.items():
             # create a new course in the database
-            db.query(Query().insert("courses").columns(["course_id", "name", "subject_id"]).values(["gen_random_uuid()", f"{course_name}", f"'{s_id}'"]).query_string)
+            db.query(Query().insert("courses").columns(["course_id", "name", "subject_id"]).values(["gen_random_uuid()", f"'{course_name}'", f"'{s_id}'"]).query_string)
             db.commit()
+
+            c_id: str = db.query(f'''SELECT course_id FROM courses
+                                 WHERE subject_id = \'{s_id}\'''')\
+                                         .fetchall()[0][0]
 
             # c_id: str = db
             for section in sections:
-                pass
+                if section["sectionTitle"] and section["callNumber"]:
+                    db.query(Query()\
+                            .insert("sections")\
+                            .columns(["section_id",
+                                     "course_id",
+                                     "call_number",
+                                     "section_title",
+                                     "credit_hours",
+                                     "activity",
+                                     "modality",
+                                     "days",
+                                     "location",
+                                     "instructor",
+                                     "status",
+                                     "combined_days",
+                                     "combined_location",
+                                     "combined_time_start",
+                                     "combined_time_stop",
+                                     "is_combined",
+                                     "note",
+                                     "timeStart",
+                                     "timeStop"
+                                     ])\
+                            .values([
+                                "gen_random_uuid()",
+                                f"'{c_id}'",
+                                f"'{section['callNumber']}'",
+                                f"'{section['sectionTitle']}'",
+                                f"'{section['creditHours']}'",
+                                f"'{section['activity']}'",
+                                f"'{section['modality']}'",
+                                f"'{section['days']}'",
+                                f"'{section['location']}'",
+                                f"'{section['instructor']}'",
+                                f"'{section['status']}'",
+                                f"'{section['combinedDays']}'",
+                                f"'{section['combinedLocation']}'",
+                                f"'{section['combinedTimeStart']}'",
+                                f"'{section['combinedTimeStop']}'",
+                                f"'{section['isCombined']}'",
+                                f"''", # empty string for now
+                                f"'{section['timeStart']}'",
+                                f"'{section['timeStop']}'"
+                                ]).query_string)
+        
+                    db.commit()
+
 
 
     # at this point, cleaned_data should be defined in some way
