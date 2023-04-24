@@ -2,7 +2,19 @@
 	import Calendar from '@event-calendar/core';
 	import TimeGrid from '@event-calendar/time-grid';
 	import { createCalendarConfig, type Section } from '$lib/models/Calendar';
+	import { client } from "$lib/trpc";
 	import scrapeData from '$lib/outputCleaned.json';
+
+	// load initial API data
+	export let data;
+	let { subjects } = data;
+	// initialize array to store current courses
+	let courses: { courseId: string, name: string, subjectId: string}[];
+
+	// function to query API for courses
+	async function getCourses(s: { subjectId: string, name: string, quarterId: number}) {
+		courses = await client.courses.getCourses.query({ subjectId: s.subjectId })
+	}
 
 	// function used to get the monday of the current week
 	// need this because the calendar is meant for full schedules and we want to convert it to just weekly (ignoring dates)
@@ -38,23 +50,25 @@
 	// TODO: Replace with actual data from API
 
 	// variables to bind to select elements
-	let selectedSubject: string = "";
-	let selectedCourse: string = "";
+	let selectedSubject: { subjectId: string, name: string, quarterId: number};
+	let selectedCourse: { courseId: string, name: string, subjectId: string};
 	// variables to store currently selected subject and course
 	// needs to be unbound to keep key errors from occuring due to weird selections
-	let currSubject: string = "";
-	let currCourse: string = "";
+	let currSubject: { subjectId: string, name: string, quarterId: number} = { subjectId: "", name: "", quarterId: 0 };
+	let currCourse: { courseId: string, name: string, subjectId: string} = { courseId: "", name: "", subjectId: "" };
 
 	// functions to handle subject and course selection events
 	function selectSubject() {
 		// sets selected subject
 		currSubject = selectedSubject;
 		// clears course selections
-		currCourse = "";
-		selectedCourse = "";
+		currCourse = { courseId: "", name: "", subjectId: "" };
+		selectedCourse = { courseId: "", name: "", subjectId: "" };
 		// updates svelte elements
 		currSubject = currSubject;
 		currCourse = currCourse;
+		// query API for courses
+		getCourses(currSubject);
 	}
 
 	function selectCourse() {
@@ -246,26 +260,26 @@
 		<!-- Subject selection -->
 		<select bind:value={selectedSubject} on:change={() => selectSubject()} name="subject" id="subject" class="w-full text-black">
 			<option value="" />
-			{#each Object.keys(scrapeData) as subject}
-				<option value="{subject}">{subject}</option>
+			{#each subjects as subject}
+				<option value="{subject}">{subject.name}</option>
 			{/each}
 		</select>
 		<!-- Course selection -->
 		{#key currSubject}
-			{#if currSubject != ""}
+			{#if currSubject.name != ""}
 				<select bind:value={selectedCourse} on:change={() => selectCourse()} name="course" id="course" class="w-full text-black">
 					<option value="" />
-					{#each Object.keys(scrapeData[currSubject]) as course}
-						<option value="{course}">{course}</option>
+					{#each courses as course}
+						<option value="{course}">{course.name}</option>
 					{/each}
 				</select>
 			{/if}
 		{/key}
 		<!-- Section selection -->
 		<div class="overflow-y-auto h-[675px]">
-		{#key currSubject + currCourse}
-			{#if currCourse != "" && currSubject != ""}
-				{#each scrapeData[currSubject][currCourse] as section}
+		{#key currCourse}
+			{#if currCourse.name != "" && currSubject.name != ""}
+				{#each scrapeData[currSubject.name][currCourse.name] as section}
 					<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0 m-2 text-sm">
 						<h1>{section.sectionTitle}</h1>
 						{#if section.modality.includes('Online')}
