@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Calendar from '@event-calendar/core';
 	import TimeGrid from '@event-calendar/time-grid';
-	import { createCalendarConfig, type Section } from '$lib/models/Calendar';
+	import { createCalendarConfig, type Section, type Course, type Subject } from '$lib/models/Calendar';
 	import { client } from "$lib/trpc";
 	import scrapeData from '$lib/outputCleaned.json';
 
@@ -9,11 +9,17 @@
 	export let data;
 	let { subjects } = data;
 	// initialize array to store current courses
-	let courses: { courseId: string, name: string, subjectId: string}[] = [];
+	let courses: Course[] = [];
+	// initialize array to store current sections
+	let sections: Section[] = [];
 
 	// function to query API for courses
-	async function getCourses(s: { subjectId: string, name: string, quarterId: number}) {
+	async function getCourses(s: Subject) {
 		courses = await client.courses.getCourses.query({ subjectId: s.subjectId })
+	}
+	// function to query API for sections
+	async function getSections(c: Course) {
+		sections = await client.sections.getSections.query({ courseId: c.courseId })
 	}
 
 	// function used to get the monday of the current week
@@ -50,12 +56,12 @@
 	// TODO: Replace with actual data from API
 
 	// variables to bind to select elements
-	let selectedSubject: { subjectId: string, name: string, quarterId: number};
-	let selectedCourse: { courseId: string, name: string, subjectId: string};
+	let selectedSubject: Subject;
+	let selectedCourse: Course;
 	// variables to store currently selected subject and course
 	// needs to be unbound to keep key errors from occuring due to weird selections
-	let currSubject: { subjectId: string, name: string, quarterId: number} = { subjectId: "", name: "", quarterId: 0 };
-	let currCourse: { courseId: string, name: string, subjectId: string} = { courseId: "", name: "", subjectId: "" };
+	let currSubject: Subject = { subjectId: "", name: "", quarterId: 0 };
+	let currCourse: Course = { courseId: "", name: "", subjectId: "" };
 
 	// functions to handle subject and course selection events
 	function selectSubject() {

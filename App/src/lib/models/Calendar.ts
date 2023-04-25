@@ -57,10 +57,24 @@ const defaultConfig = {
 	withScroll: 'ec-with-scroll'
 };
 
+export interface Subject {
+	subjectId: string, 
+	name: string, 
+	quarterId: number
+}
+
+export interface Course {
+	courseId: string, 
+	name: string, 
+	subjectId: string
+}
+
 export interface Section {
+	sectionId: string;
+	courseId: string;
+	callNumber: number;
 	sectionTitle: string;
-	callNumber: string;
-	status: string;
+	creditHours: number;
 	activity: string;
 	modality: string;
 	days: string; //put days as one concatenated string such as MWF or TH
@@ -68,12 +82,13 @@ export interface Section {
 	timeStop: string;
 	location: string;
 	instructor: string;
-	creditHours: string;
+	status: string;
 	isCombined: boolean; //if true, then the section is a combined section
 	combinedDays: string; //add data for combined section
 	combinedTimeStart: string;
 	combinedTimeStop: string;
 	combinedLocation: string;
+	note: string;
 }
 
 export function createCalendarConfig(configurations: object): object {
