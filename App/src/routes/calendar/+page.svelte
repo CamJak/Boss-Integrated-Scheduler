@@ -1,8 +1,13 @@
 <script lang="ts">
 	import Calendar from '@event-calendar/core';
 	import TimeGrid from '@event-calendar/time-grid';
-	import { createCalendarConfig, type Section, type Course, type Subject } from '$lib/models/Calendar';
-	import { client } from "$lib/trpc";
+	import {
+		createCalendarConfig,
+		type Section,
+		type Course,
+		type Subject
+	} from '$lib/models/Calendar';
+	import { client } from '$lib/trpc';
 	import scrapeData from '$lib/outputCleaned.json';
 
 	// load initial API data
@@ -15,11 +20,11 @@
 
 	// function to query API for courses
 	async function getCourses(s: Subject) {
-		courses = await client.courses.getCourses.query({ subjectId: s.subjectId })
+		courses = await client.courses.getCourses.query({ subjectId: s.subjectId });
 	}
 	// function to query API for sections
 	async function getSections(c: Course) {
-		sections = await client.sections.getSections.query({ courseId: c.courseId })
+		sections = await client.sections.getSections.query({ courseId: c.courseId });
 	}
 
 	// function used to get the monday of the current week
@@ -60,16 +65,16 @@
 	let selectedCourse: Course;
 	// variables to store currently selected subject and course
 	// needs to be unbound to keep key errors from occuring due to weird selections
-	let currSubject: Subject = { subjectId: "", name: "", quarterId: 0 };
-	let currCourse: Course = { courseId: "", name: "", subjectId: "" };
+	let currSubject: Subject = { subjectId: '', name: '', quarterId: 0 };
+	let currCourse: Course = { courseId: '', name: '', subjectId: '' };
 
 	// functions to handle subject and course selection events
 	function selectSubject() {
 		// sets selected subject
 		currSubject = selectedSubject;
 		// clears course selections
-		currCourse = { courseId: "", name: "", subjectId: "" };
-		selectedCourse = { courseId: "", name: "", subjectId: "" };
+		currCourse = { courseId: '', name: '', subjectId: '' };
+		selectedCourse = { courseId: '', name: '', subjectId: '' };
 		// updates svelte elements
 		currSubject = currSubject;
 		currCourse = currCourse;
@@ -88,13 +93,7 @@
 	let addedSections: Section[] = [];
 
 	// list of possible section colors
-	let colors = [
-		'#2D41F0',
-		'#F02D2D',
-		'#F0A02D',
-		'#D5C747',
-		'#2EC62E',
-	]
+	let colors = ['#2D41F0', '#F02D2D', '#F0A02D', '#D5C747', '#2EC62E'];
 
 	let colorIndex: number = 0;
 
@@ -214,12 +213,12 @@
 	// function to export calendar to call numbers
 	function exportCalendar() {
 		let callNumbersArray: string[] = [];
-		let callNumbersString: string = "";
+		let callNumbersString: string = '';
 		for (let i = 0; i < addedSections.length; i++) {
 			callNumbersArray.push(addedSections[i].callNumber);
 		}
 		// convert array to a single string with commas
-		callNumbersString = callNumbersArray.join(",");
+		callNumbersString = callNumbersArray.join(',');
 		// populate the text box with the call numbers
 		importString = callNumbersString;
 	}
@@ -227,7 +226,7 @@
 	// function to import calendar from call numbers
 	function importCalendar() {
 		// split import string into array of call numbers
-		let callNumbersArray: number[] = <number[]><unknown>importString.split(",");
+		let callNumbersArray: number[] = <number[]>(<unknown>importString.split(','));
 		// iterate through call numbers and add them to the calendar
 		for (let i = 0; i < callNumbersArray.length; i++) {
 			// find the section with the call number
@@ -260,46 +259,60 @@
 	<!-- Left side section for 'section' selection (BOSS integration happens here) -->
 	<div class="border-2 border-slate-400 rounded-lg space-y-2 basis-1/6 flex flex-col">
 		<!-- Subject selection -->
-		<select bind:value={selectedSubject} on:change={() => selectSubject()} name="subject" id="subject" class="w-full text-black">
+		<select
+			bind:value={selectedSubject}
+			on:change={() => selectSubject()}
+			name="subject"
+			id="subject"
+			class="w-full text-black"
+		>
 			<option value="" />
 			{#each subjects as subject}
-				<option value="{subject}">{subject.name}</option>
+				<option value={subject}>{subject.name}</option>
 			{/each}
 		</select>
 		<!-- Course selection -->
 		{#key currSubject}
-			{#if currSubject.name != ""}
-				<select bind:value={selectedCourse} on:change={() => selectCourse()} name="course" id="course" class="w-full text-black">
+			{#if currSubject.name != ''}
+				<select
+					bind:value={selectedCourse}
+					on:change={() => selectCourse()}
+					name="course"
+					id="course"
+					class="w-full text-black"
+				>
 					<option value="" />
 					{#each courses as course}
-						<option value="{course}">{course.name}</option>
+						<option value={course}>{course.name}</option>
 					{/each}
 				</select>
 			{/if}
 		{/key}
 		<!-- Section selection -->
 		<div class="overflow-y-auto h-[675px]">
-		{#key currCourse}
-			{#if currCourse.name != "" && currSubject.name != ""}
-				{#each scrapeData[currSubject.name][currCourse.name] as section}
-					<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0 m-2 text-sm">
-						<h1>{section.sectionTitle}</h1>
-						{#if section.modality.includes('Online')}
-							<h2 class="">ONLINE</h2>
-						{:else}
-							<h2>{section.days} {section.timeStart}-{section.timeStop}</h2>
-						{/if}
-						<h2>{section.instructor}</h2>
-						<h2>{section.callNumber}</h2>
-						<button
-							on:click={() => addSection(section)}
-							class="invisible group-hover:visible bg-green-600 rounded-lg absolute z-10 top-0 right-0 p-1 text-black text-lg"
-							>+</button
+			{#key currCourse}
+				{#if currCourse.name != '' && currSubject.name != ''}
+					{#each scrapeData[currSubject.name][currCourse.name] as section}
+						<div
+							class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0 m-2 text-sm"
 						>
-					</div>
-				{/each}
-			{/if}
-		{/key}
+							<h1>{section.sectionTitle}</h1>
+							{#if section.modality.includes('Online')}
+								<h2 class="">ONLINE</h2>
+							{:else}
+								<h2>{section.days} {section.timeStart}-{section.timeStop}</h2>
+							{/if}
+							<h2>{section.instructor}</h2>
+							<h2>{section.callNumber}</h2>
+							<button
+								on:click={() => addSection(section)}
+								class="invisible group-hover:visible bg-green-600 rounded-lg absolute z-10 top-0 right-0 p-1 text-black text-lg"
+								>+</button
+							>
+						</div>
+					{/each}
+				{/if}
+			{/key}
 		</div>
 	</div>
 
@@ -307,13 +320,9 @@
 	<div class="basis-5/6">
 		<Calendar bind:this={ec} {plugins} {options} />
 		<!-- Buttons for exporting and importing calendar -->
-		<button on:click={exportCalendar} class="rounded-full bg-blue-400 p-2"
-			>Export Calendar</button
-		>
-		<button on:click={importCalendar} class="rounded-full bg-blue-400 p-2"
-			>Import Calendar</button
-		>
-		<input type="text" bind:value={importString} class="text-black" placeholder="10001,10054,..."/>
+		<button on:click={exportCalendar} class="rounded-full bg-blue-400 p-2">Export Calendar</button>
+		<button on:click={importCalendar} class="rounded-full bg-blue-400 p-2">Import Calendar</button>
+		<input type="text" bind:value={importString} class="text-black" placeholder="10001,10054,..." />
 	</div>
 
 	<!-- Right side section for showing 'sections' that are added to calendar -->

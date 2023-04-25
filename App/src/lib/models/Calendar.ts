@@ -58,15 +58,15 @@ const defaultConfig = {
 };
 
 export interface Subject {
-	subjectId: string, 
-	name: string, 
-	quarterId: number
+	subjectId: string;
+	name: string;
+	quarterId: number;
 }
 
 export interface Course {
-	courseId: string, 
-	name: string, 
-	subjectId: string
+	courseId: string;
+	name: string;
+	subjectId: string;
 }
 
 export interface Section {
