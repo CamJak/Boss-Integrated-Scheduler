@@ -9,7 +9,7 @@
 	export let data;
 	let { subjects } = data;
 	// initialize array to store current courses
-	let courses: { courseId: string, name: string, subjectId: string}[];
+	let courses: { courseId: string, name: string, subjectId: string}[] = [];
 
 	// function to query API for courses
 	async function getCourses(s: { subjectId: string, name: string, quarterId: number}) {
@@ -130,8 +130,8 @@
 
 	// function to remove event from calendar component by title
 	function rmvEvent(e: string) {
-		// pull all events from calendar component
-		let events: Event[] = ec.getEvents();
+		// pull all events from calendar component (NEED TO TYPE LATER)
+		let events: any[] = ec.getEvents();
 		// if the title of the event matches the title of the event to be removed, remove it
 		// titles are specific to individual sections, so this should be fine
 		for (let i = 0; i < events.length; i++) {
@@ -233,15 +233,11 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="Integrated calendar component" charset="utf-8" />
 	<title>BOSS Calendar</title>
+	<meta name="description" content="Integrated calendar component" />
 </svelte:head>
 
 <div class="flex flex-col items-center">
-	<h1 class="sm:text-7xl text-3xl dark:text-white font-extrabold text-center">
-		Calendar Test Page!
-	</h1>
-
 	<div class="flex sm:flex-row flex-col items-center sm:space-x-2 space-y-2 sm:space-y-0">
 		<a href="/" class="btn-round text-white bg-gradient-to-r from-blue-400 to-blue-600 font-poppins"
 			>Go Back</a
