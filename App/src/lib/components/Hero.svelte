@@ -25,7 +25,7 @@
 			>Get Started</a
 		>
 		<a
-			href="/"
+			href="/about"
 			class="btn-round text-black bg-gradient-to-r from-slate-300 to-slate-400 text-xs sm:text-[20px] sm:py-4 sm:rounded-xl font-poppins"
 			>Learn More</a
 		>
