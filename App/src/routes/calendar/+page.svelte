@@ -8,7 +8,6 @@
 		type Subject
 	} from '$lib/models/Calendar';
 	import { client } from '$lib/trpc';
-	import scrapeData from '$lib/outputCleaned.json';
 
 	// load initial API data
 	export let data;
@@ -25,6 +24,10 @@
 	// function to query API for sections
 	async function getSections(c: Course) {
 		sections = await client.sections.getSections.query({ courseId: c.courseId });
+	}
+	// function to get section by call number via API
+	async function getSectionByCallNumber(callNumber: number) {
+		return await client.getSectionByCallNumber.getSection.query({ callNumber: callNumber });
 	}
 
 	// function used to get the monday of the current week
@@ -87,6 +90,8 @@
 		currCourse = selectedCourse;
 		// updates svelte elements
 		currCourse = currCourse;
+		// query API for sections
+		getSections(currCourse);
 	}
 
 	// initialize empty list for added sections
@@ -130,7 +135,6 @@
 			};
 			ec.addEvent(newEvent);
 		}
-		colorIndex = (colorIndex + 1) % colors.length;
 	}
 
 	// function to remove event from calendar component by title
@@ -144,7 +148,6 @@
 				ec.removeEventById(events[i].id);
 			}
 		}
-		colorIndex = (colorIndex - 1) % colors.length;
 	}
 
 	// function to parse Section model and display it on the calendar appropriately!
@@ -161,20 +164,7 @@
 				addEvent(s.combinedDays, s.combinedTimeStart, s.combinedTimeStop, s.sectionTitle);
 			}
 		}
-	}
-
-	// function to get section by call number
-	// its pretty gross I know, but is there a better way?
-	function getSectionByCallNumber(callNumber: number) {
-		for (let subject of Object.keys(scrapeData)) {
-			for (let course of Object.keys(scrapeData[subject])) {
-				for (let section of scrapeData[subject][course]) {
-					if (section.callNumber == callNumber && section.title != '') {
-						return section;
-					}
-				}
-			}
-		}
+		colorIndex = (colorIndex + 1) % colors.length;
 	}
 
 	function rmvSection(s: Section) {
@@ -183,6 +173,7 @@
 		addedSections.splice(addedSections.indexOf(s), 1);
 		addedSections = addedSections;
 		rmvEvent(s.sectionTitle);
+		colorIndex = (colorIndex - 1) % colors.length;
 	}
 
 	// initialize clearing state to false
@@ -215,7 +206,7 @@
 		let callNumbersArray: string[] = [];
 		let callNumbersString: string = '';
 		for (let i = 0; i < addedSections.length; i++) {
-			callNumbersArray.push(addedSections[i].callNumber);
+			callNumbersArray.push(<string><unknown>addedSections[i].callNumber);
 		}
 		// convert array to a single string with commas
 		callNumbersString = callNumbersArray.join(',');
@@ -224,13 +215,13 @@
 	}
 
 	// function to import calendar from call numbers
-	function importCalendar() {
+	async function importCalendar() {
 		// split import string into array of call numbers
-		let callNumbersArray: number[] = <number[]>(<unknown>importString.split(','));
+		let callNumbersArray: string[] = (importString.split(','));
 		// iterate through call numbers and add them to the calendar
 		for (let i = 0; i < callNumbersArray.length; i++) {
 			// find the section with the call number
-			let section: Section = getSectionByCallNumber(callNumbersArray[i]);
+			let section: Section = await getSectionByCallNumber(Number(callNumbersArray[i]));
 			// add the section to the calendar
 			addSection(section);
 		}
@@ -292,7 +283,7 @@
 		<div class="overflow-y-auto h-[675px]">
 			{#key currCourse}
 				{#if currCourse.name != '' && currSubject.name != ''}
-					{#each scrapeData[currSubject.name][currCourse.name] as section}
+					{#each sections as section}
 						<div
 							class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0 m-2 text-sm"
 						>

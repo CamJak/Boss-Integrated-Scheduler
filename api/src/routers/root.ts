@@ -2,6 +2,7 @@ import { t } from "../trpc";
 import { subjectsRouter } from "./subjects";
 import { coursesRouter } from "./courses";
 import { sectionsRouter } from "./sections";
+import { getSectionByCallNumberRouter } from "./getSectionByCallNumber";
 
 
 export const appRouter = t.router({
@@ -17,5 +18,6 @@ export const appRouter = t.router({
   }),
   subjects: subjectsRouter,
   courses: coursesRouter,
-  sections: sectionsRouter
+  sections: sectionsRouter,
+  getSectionByCallNumber: getSectionByCallNumberRouter
 })
