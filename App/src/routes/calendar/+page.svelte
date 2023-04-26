@@ -9,6 +9,8 @@
 	} from '$lib/models/Calendar';
 	import { client } from '$lib/trpc';
 	import scrapeData from '$lib/outputCleaned.json';
+	import { onMount } from 'svelte';
+  import schedule from '$lib/stores/schedule';
 
 	// load initial API data
 	export let data;
@@ -17,6 +19,13 @@
 	let courses: Course[] = [];
 	// initialize array to store current sections
 	let sections: Section[] = [];
+
+  onMount(() => {
+    let loadedSchedule: any[] = JSON.parse($schedule);
+    for (let i of loadedSchedule) {
+      addSection(i);
+    }
+  });
 
 	// function to query API for courses
 	async function getCourses(s: Subject) {
@@ -97,7 +106,7 @@
 
 	let colorIndex: number = 0;
 
-	function addEvent(days: string, timeStart: string, timeStop: string, title: string) {
+	function addEvent(days: string, timeStart: string, timeStop: string, title: string, store: boolean = false) {
 		var eventDay: string;
 
 		// iterate through days value of event and find a match
@@ -160,6 +169,7 @@
 			if (s.isCombined) {
 				addEvent(s.combinedDays, s.combinedTimeStart, s.combinedTimeStop, s.sectionTitle);
 			}
+      schedule.set(JSON.stringify(addedSections));
 		}
 	}
 
@@ -183,6 +193,7 @@
 		addedSections.splice(addedSections.indexOf(s), 1);
 		addedSections = addedSections;
 		rmvEvent(s.sectionTitle);
+    schedule.set(JSON.stringify(addedSections));
 	}
 
 	// initialize clearing state to false
@@ -192,6 +203,7 @@
 	function clearCalendar() {
 		options.events = [];
 		addedSections = [];
+    schedule.set("[]");
 	}
 
 	// function to check if user wants to clear the calendar
