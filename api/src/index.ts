@@ -5,24 +5,28 @@ import { PrismaClient } from "@prisma/client";
 import cors from "cors";
 import { appRouter } from "./routers/root";
 import { createContext } from "./trpc";
+import { Env, validateEnvironment } from "./env";
 
+// validate environment configurations using Zod
+export const env: Env = validateEnvironment();
+
+// initialize Prisma database ORM client
 export const prisma = new PrismaClient();
 
 const app: Express = express();
 
 
-// cors policy may need to be altered as we deploy and open our API to the public
-// the second string here is for the production site's URL
-
-// const frontendUrl: string = process.env.DEVMODE ? "localhost:5173" : "";
-
-// app.use(cors({ origin: frontendUrl }));
-if (process.env.DEVMODE) {
+// if in DEV mode, change CORS policy to avoid errors
+if (env.RUN_MODE === "DEV") {
   app.use(cors());
 }
-app.use("/trpc", createExpressMiddleware({ router: appRouter }), createContext);
-const port = process.env.PORT || 3000;
 
+// add tRPC routes to /trpc
+app.use("/trpc", createExpressMiddleware({ router: appRouter }), createContext);
+
+const port = env.PORT || 3000;
+
+// listen for requests at this port
 app.listen(port, () => {
   console.log(`Server running at port ${port}`);
 })
