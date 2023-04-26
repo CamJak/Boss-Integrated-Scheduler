@@ -8,9 +8,8 @@
 		type Subject
 	} from '$lib/models/Calendar';
 	import { client } from '$lib/trpc';
-	import scrapeData from '$lib/outputCleaned.json';
 	import { onMount } from 'svelte';
-    import schedule from '$lib/stores/schedule';
+	import schedule from '$lib/stores/schedule';
 
 	// load initial API data
 	export let data;
@@ -20,12 +19,12 @@
 	// initialize array to store current sections
 	let sections: Section[] = [];
 
-  onMount(() => {
-    let loadedSchedule: any[] = JSON.parse($schedule);
-    for (let i of loadedSchedule) {
-      addSection(i);
-    }
-  });
+	onMount(() => {
+		let loadedSchedule: any[] = JSON.parse($schedule);
+		for (let i of loadedSchedule) {
+			addSection(i);
+		}
+	});
 
 	// function to query API for courses
 	async function getCourses(s: Subject) {
@@ -110,9 +109,15 @@
 	// list of possible section colors
 	let colors = ['#2D41F0', '#F02D2D', '#F0A02D', '#D5C747', '#2EC62E'];
 
-	let colorIndex: number = 0;
+	let colorIndex = 0;
 
-	function addEvent(days: string, timeStart: string, timeStop: string, title: string, store: boolean = false) {
+	function addEvent(
+		days: string,
+		timeStart: string,
+		timeStop: string,
+		title: string,
+		store: boolean = false
+	) {
 		var eventDay: string;
 
 		// iterate through days value of event and find a match
@@ -173,7 +178,7 @@
 			if (s.isCombined) {
 				addEvent(s.combinedDays, s.combinedTimeStart, s.combinedTimeStop, s.sectionTitle);
 			}
-      schedule.set(JSON.stringify(addedSections));
+			schedule.set(JSON.stringify(addedSections));
 		}
 		colorIndex = (colorIndex + 1) % colors.length;
 	}
@@ -184,18 +189,18 @@
 		addedSections.splice(addedSections.indexOf(s), 1);
 		addedSections = addedSections;
 		rmvEvent(s.sectionTitle);
-    	schedule.set(JSON.stringify(addedSections));
+		schedule.set(JSON.stringify(addedSections));
 		colorIndex = (colorIndex - 1) % colors.length;
 	}
 
 	// initialize clearing state to false
-	let clearing: boolean = false;
+	let clearing = false;
 
 	// function to clear all events from the calendar
 	function clearCalendar() {
 		options.events = [];
 		addedSections = [];
-    	schedule.set("[]");
+		schedule.set('[]');
 		colorIndex = 0;
 	}
 
@@ -218,9 +223,9 @@
 	// function to export calendar to call numbers
 	function exportCalendar() {
 		let callNumbersArray: string[] = [];
-		let callNumbersString: string = '';
+		let callNumbersString = '';
 		for (let i = 0; i < addedSections.length; i++) {
-			callNumbersArray.push(<string><unknown>addedSections[i].callNumber);
+			callNumbersArray.push(<string>(<unknown>addedSections[i].callNumber));
 		}
 		// convert array to a single string with commas
 		callNumbersString = callNumbersArray.join(',');
@@ -231,7 +236,7 @@
 	// function to import calendar from call numbers
 	async function importCalendar() {
 		// split import string into array of call numbers
-		let callNumbersArray: string[] = (importString.split(','));
+		let callNumbersArray: string[] = importString.split(',');
 		// iterate through call numbers and add them to the calendar
 		for (let i = 0; i < callNumbersArray.length; i++) {
 			// find the section with the call number
