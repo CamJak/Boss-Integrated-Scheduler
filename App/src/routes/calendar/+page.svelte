@@ -195,7 +195,8 @@
 	function clearCalendar() {
 		options.events = [];
 		addedSections = [];
-    schedule.set("[]");
+    	schedule.set("[]");
+		colorIndex = 0;
 	}
 
 	// function to check if user wants to clear the calendar
