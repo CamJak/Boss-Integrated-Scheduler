@@ -14,7 +14,7 @@
 
 	<!-- Center bit -->
 	<div class="hidden md:flex flex-row space-x-6">
-		<a href="/calendar?new=true" class="dark:text-white hover:cursor-pointer font-poppins">NEW</a>
+		<a href="/calendar?new" class="dark:text-white hover:cursor-pointer font-poppins">NEW</a>
 		<a href="/calendar" class="dark:text-white hover:cursor-pointer font-poppins">RECENT</a>
 	</div>
 

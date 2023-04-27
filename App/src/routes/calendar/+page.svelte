@@ -9,6 +9,7 @@
 	} from '$lib/models/Calendar';
 	import { client } from '$lib/trpc';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 	import schedule from '$lib/stores/schedule';
 
 	// load initial API data
@@ -20,9 +21,11 @@
 	let sections: Section[] = [];
 
 	onMount(() => {
-		let loadedSchedule: any[] = JSON.parse($schedule);
-		for (let i of loadedSchedule) {
-			addSection(i);
+		if ($page.url.searchParams.has('new') == false) {
+			let loadedSchedule: any[] = JSON.parse($schedule);
+			for (let i of loadedSchedule) {
+				addSection(i);
+			}
 		}
 	});
 
