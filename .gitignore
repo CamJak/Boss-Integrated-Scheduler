@@ -22,3 +22,5 @@ api/.env
 apiold/node_modules
 apiold/dist
 apiold/.env
+
+PublicApi/public_api/target

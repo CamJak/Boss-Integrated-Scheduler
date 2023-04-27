@@ -1,0 +1,17 @@
+[package]
+name = "public_api"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+sqlx = { version = "0.6.2", features = ["runtime-async-std-native-tls", "mysql", "chrono", "uuid"] }
+dotenvy = "0.15"
+actix-cors = "0.6.4"
+actix-web = "4.3.0"
+chrono = { version = "0.4.23", features = ["serde"] }
+serde = { version = "1.0.152", features = ["derive"] }
+serde_json = "1.0.91"
+uuid = { version = "1.2.2", features = ["serde", "v4"] }
+actix-extensible-rate-limit = "0.2.1"
