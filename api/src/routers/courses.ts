@@ -1,6 +1,6 @@
 import { prisma } from "..";
 import { courseSchema } from "../models/courses";
-import type { Course } from "../models/courses";
+import type { Section } from "../models/sections";
 import { t } from "../trpc";
 import { z } from "zod";
 
@@ -13,16 +13,23 @@ export const coursesRouter = t.router({
   const { subjectId } = input;
     // use this prisma query when actual data exists
     //return await prisma.subject.findMany();
-    const subjects = await prisma.subject.findMany({
+    const courses = await prisma.course.findMany({
         where: {
             subjectId: subjectId
         },
         include: {
-            courses: true
+          sections: true
         }
     });
-    const subject = subjects[0];
-    return subject.courses;
+    let i = 0;
+    while (i < courses.length) {
+      if (courses[i].sections.length == 0) {
+        courses.splice(i, 1);
+      } else {
+        i++;
+      };
+    };
+    return courses;
   }),
   // get subject by Id
   // validate with Zod
