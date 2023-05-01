@@ -8,7 +8,7 @@
 	const { quarters } = data;
 </script>
 
-<div class="min-h-screen bg-white dark:bg-black">
+<div class="min-h-screen bg-white dark:bg-gray-700">
 	<Nav {quarters} />
 
 	<slot />

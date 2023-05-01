@@ -290,7 +290,7 @@
 
 <div class="px-20 dark:text-white flex flex-row gap-6">
 	<!-- Left side section for 'section' selection (BOSS integration happens here) -->
-	<div class="border-2 border-slate-400 rounded-lg space-y-2 basis-1/6 flex flex-col">
+	<div class="border-2 border-slate-400 rounded-lg space-y-2 basis-1/6 flex flex-col bg-gray-800">
 		<!-- Subject selection -->
 		<select
 			bind:value={selectedSubject}
@@ -350,8 +350,10 @@
 	</div>
 
 	<!-- Our nice calendar component -->
-	<div class="basis-5/6">
-		<Calendar bind:this={ec} {plugins} {options} />
+	<div class="basis-5/6 bg-gray-800 rounded-lg border-2 border-slate-400">
+		<div>
+			<Calendar bind:this={ec} {plugins} {options} />
+		</div>
 		<!-- Buttons for exporting and importing calendar -->
 		<button on:click={exportCalendar} class="rounded-full bg-blue-400 p-2">Export Calendar</button>
 		<button on:click={importCalendar} class="rounded-full bg-blue-400 p-2">Import Calendar</button>
@@ -359,7 +361,7 @@
 	</div>
 
 	<!-- Right side section for showing 'sections' that are added to calendar -->
-	<div class="border-2 border-slate-400 rounded-lg basis-1/6 flex flex-col">
+	<div class="border-2 border-slate-400 rounded-lg basis-1/6 flex flex-col bg-gray-800">
 		<!-- Display added sections in a scrollable bar -->
 		<div class="overflow-y-auto h-[700px]">
 			{#each addedSections as section}
