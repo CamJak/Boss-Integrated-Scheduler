@@ -13,6 +13,7 @@
 	import schedule from '$lib/stores/schedule';
 	import quarter from '$lib/stores/quarter';
 	import type { PageServerData } from './$types';
+	import { goto } from '$app/navigation';
 
 	// load initial API data
 	export let data: PageServerData;
@@ -21,6 +22,8 @@
 	let courses: Course[] = [];
 	// initialize array to store current sections
 	let sections: Section[] = [];
+
+  let firstRun = true;
 
 	onMount(() => {
 		if (!$page.url.searchParams.has('new')) {
@@ -32,10 +35,13 @@
 	});
 
   quarter.subscribe(async (value) => {
-    if (value.year !== prevQuarter.year || value.season !== prevQuarter.season) {
+    if (value.year !== prevQuarter.year || value.season !== prevQuarter.season && !firstRun) {
 
       $page.url.searchParams.set('year', `${value.year}`);
       $page.url.searchParams.set('season', value.season);
+      
+      goto(`/calendar?${$page.url.searchParams.toString()}`);
+      console.log("hitting")
 
       prevQuarter = value;
 
@@ -48,7 +54,7 @@
       currCourse = { courseId: '', name: '', subjectId: '' };
       selectedCourse = { courseId: '', name: '', subjectId: '' };
       clearCalendar();
-    } 
+    } else firstRun = false;
   });
 
 	// function to query API for courses

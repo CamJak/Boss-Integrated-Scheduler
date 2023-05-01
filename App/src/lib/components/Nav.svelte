@@ -49,27 +49,27 @@
 	<!-- Center bit -->
 	<div class="hidden md:flex flex-row space-x-6">
 		<!-- if this section selected, hide the buttons and show the select for term -->
-		<!-- {#if $page.route.id?.startsWith('/calendar')} -->
-  <!--     <select class="rounded-lg dark:bg-gray-700 px-2 py-1" placeholder="Quarter"> -->
-  <!--       {#each quarters as q} -->
-  <!--         {#if q.year === $quarter.year && q.season === $quarter.season} -->
-  <!--           <option selected={true} value={q}>{q.season} {q.year}</option> -->
-  <!--         {:else} -->
-  <!--           <option on:click={() => quarter.set(q)} value={q}>{q.season} {q.year}</option> -->
-  <!--         {/if} -->
-  <!--          -->
-  <!--       {/each} -->
-  <!--     </select> -->
-  <!--   {:else} -->
-		<!-- 	<a href="/calendar?new=true&year={$quarter.year}&season={$quarter.season}" class="dark:text-white hover:cursor-pointer font-poppins">NEW</a> -->
-		<!-- 	{#if showRecentLink} -->
-		<!-- 		<a href="/calendar" class="dark:text-white hover:cursor-pointer font-poppins">RECENT</a> -->
-		<!-- 	{/if} -->
-		<!-- {/if} -->
-    <a href="/calendar?new=true&year={$quarter.year}&season={$quarter.season}" class="dark:text-white hover:cursor-pointer font-poppins">NEW</a>
-    {#if showRecentLink}
-      <a href="/calendar" class="dark:text-white hover:cursor-pointer font-poppins">RECENT</a>
-    {/if}
+		{#if $page.route.id?.startsWith('/calendar')}
+      <select class="rounded-lg dark:bg-gray-700 px-2 py-1" placeholder="Quarter">
+        {#each quarters as q}
+          {#if q.year === $quarter.year && q.season === $quarter.season}
+            <option selected={true} value={q}>{q.season} {q.year}</option>
+          {:else}
+            <option on:click={() => quarter.set(q)} value={q}>{q.season} {q.year}</option>
+          {/if}
+          
+        {/each}
+      </select>
+    {:else}
+			<a href="/calendar?new=true&year={$quarter.year}&season={$quarter.season}" class="dark:text-white hover:cursor-pointer font-poppins">NEW</a>
+			{#if showRecentLink}
+				<a href="/calendar?year={$quarter.year}&season={$quarter.season}" class="dark:text-white hover:cursor-pointer font-poppins">RECENT</a>
+			{/if}
+		{/if}
+    <!-- <a href="/calendar?new=true&year={$quarter.year}&season={$quarter.season}" class="dark:text-white hover:cursor-pointer font-poppins">NEW</a> -->
+    <!-- {#if showRecentLink} -->
+    <!--   <a href="/calendar" class="dark:text-white hover:cursor-pointer font-poppins">RECENT</a> -->
+    <!-- {/if} -->
 	</div>
 
 	<!-- RIGHT BIT -->
