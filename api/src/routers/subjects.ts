@@ -3,6 +3,7 @@ import { subjectSchema } from "../models/subjects";
 import type { Subject } from "../models/subjects";
 import { t } from "../trpc";
 import { z } from "zod";
+import { title } from "process";
 
 const getSubjectsInputSchema = z.object({
   year: z.number(),
@@ -20,7 +21,14 @@ export const subjectsRouter = t.router({
         season: season
       },
       include: {
-        Subject: true
+        Subject: {
+          orderBy: {
+            name: "asc"
+          }
+        }
+      },
+      orderBy: {
+        dateUpdated: "desc"
       }
     });
     const quarter = quarters[0];

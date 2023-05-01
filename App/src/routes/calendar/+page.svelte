@@ -11,23 +11,45 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import schedule from '$lib/stores/schedule';
+	import quarter from '$lib/stores/quarter';
+	import type { PageServerData } from './$types';
 
 	// load initial API data
-	export let data;
-	let { subjects } = data;
+	export let data: PageServerData;
+	let { subjects, initialQuarter: prevQuarter } = data;
 	// initialize array to store current courses
 	let courses: Course[] = [];
 	// initialize array to store current sections
 	let sections: Section[] = [];
 
 	onMount(() => {
-		if ($page.url.searchParams.has('new') == false) {
+		if (!$page.url.searchParams.has('new')) {
 			let loadedSchedule: any[] = JSON.parse($schedule);
 			for (let i of loadedSchedule) {
 				addSection(i);
 			}
 		}
 	});
+
+  quarter.subscribe(async (value) => {
+    if (value.year !== prevQuarter.year || value.season !== prevQuarter.season) {
+
+      $page.url.searchParams.set('year', `${value.year}`);
+      $page.url.searchParams.set('season', value.season);
+
+      prevQuarter = value;
+
+      subjects = await client.subjects.getSubjects.query({ year: value.year, season: value.season});
+
+      selectedSubject = { subjectId: '', name: '', quarterId: 0 };
+
+      currSubject = selectedSubject;
+      // clears course selections
+      currCourse = { courseId: '', name: '', subjectId: '' };
+      selectedCourse = { courseId: '', name: '', subjectId: '' };
+      clearCalendar();
+    } 
+  });
 
 	// function to query API for courses
 	async function getCourses(s: Subject) {
