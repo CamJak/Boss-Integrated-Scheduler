@@ -67,7 +67,7 @@
 	}
 	// function to get section by call number via API
 	async function getSectionByCallNumber(callNumber: number) {
-		return await client.getSectionByCallNumber.getSection.query({ callNumber: callNumber });
+		return await client.sections.getSectionByCallNumber.query({ callNumber: callNumber });
 	}
 
 	// function used to get the monday of the current week
