@@ -6,7 +6,7 @@ import schedule from "./schedule";
 
 export type Season = "Spring" | "Summer" | "Fall" | "Winter";
 
-let firstRun = true;
+// let firstRun = true;
 
 let initialValue: QuarterStoreType;
 
@@ -23,14 +23,15 @@ const quarter = writable<QuarterStoreType>(initialValue);
 
 quarter.subscribe((value) => {
   if (browser) {
-    if (firstRun) {
-      window.localStorage.setItem('quarter', `${value.season} ${value.year}`);
-    } else {
-      if (value.year !== initialValue.year || value.season !== initialValue.season) {
-        window.localStorage.setItem('quarter', `${value.season} ${value.year}`);
-        schedule.set('[]');
-      }
-    }
+    window.localStorage.setItem('quarter', `${value.season} ${value.year}`);
+    // if (firstRun) {
+    //   window.localStorage.setItem('quarter', `${value.season} ${value.year}`);
+    // } else {
+    //   if (value.year !== initialValue.year || value.season !== initialValue.season) {
+    //     window.localStorage.setItem('quarter', `${value.season} ${value.year}`);
+    //     schedule.set('[]');
+    //   }
+    // }
   }
 })
 
