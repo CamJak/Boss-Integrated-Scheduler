@@ -19,6 +19,10 @@ const app: Express = express();
 // if in DEV mode, change CORS policy to avoid errors
 if (env.RUN_MODE === "DEV") {
   app.use(cors());
+} else if (env.RUN_MODE === "PROD") {
+  app.use(cors({
+    origin: "*"
+  }));
 }
 
 // add tRPC routes to /trpc
