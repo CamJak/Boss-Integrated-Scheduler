@@ -1,5 +1,8 @@
 import { t } from "../trpc";
 import { subjectsRouter } from "./subjects";
+import { coursesRouter } from "./courses";
+import { sectionsRouter } from "./sections";
+import { quartersRouter } from "./quarters";
 
 
 export const appRouter = t.router({
@@ -13,5 +16,8 @@ export const appRouter = t.router({
   }).mutation(req => {
     console.log(`client says: ${req.input}`);
   }),
-  subjects: subjectsRouter
+  subjects: subjectsRouter,
+  courses: coursesRouter,
+  sections: sectionsRouter,
+  quarters: quartersRouter,
 })
