@@ -30,6 +30,10 @@ app.use("/trpc", createExpressMiddleware({ router: appRouter }), createContext);
 
 const port = env.PORT || 3000;
 
+app.get('/', function (req, res) {
+ return res.send('Hello from Express!');
+});
+
 // listen for requests at this port
 app.listen(port, () => {
   console.log(`Server running at port ${port}`);
