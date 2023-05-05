@@ -10,6 +10,7 @@ export const appRouter = t.router({
     return "Hello world";
   }),
   healthCheck: t.procedure.query(() => {
+    console.log("hit tRPC healthcheck")
     return "Hello from tRPC!";
   }),
   logToServer: t.procedure.input(v => {
