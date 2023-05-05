@@ -8,7 +8,7 @@
 		type Subject
 	} from '$lib/models/Calendar';
 	import { client } from '$lib/trpc';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import schedule from '$lib/stores/schedule';
 	import quarter from '$lib/stores/quarter';
@@ -34,7 +34,7 @@
 		}
 	});
 
-	quarter.subscribe(async (value) => {
+	let quarterSubscription = quarter.subscribe(async (value) => {
 		if (value) {
 			if (value.year !== prevQuarter.year || (value.season !== prevQuarter.season && !firstRun)) {
 				$page.url.searchParams.set('year', `${value.year}`);
@@ -60,6 +60,8 @@
 			} else firstRun = false;
 		}
 	});
+
+  onDestroy(quarterSubscription);
 
 	// function to query API for courses
 	async function getCourses(s: Subject) {
