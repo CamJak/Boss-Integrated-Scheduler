@@ -6,6 +6,7 @@ import { t } from "../trpc";
 
 export const quartersRouter = t.router({
   getQuarters: t.procedure.output(z.array(quarterSchema)).query(async () => {
+    console.log("Getting Quarters");
     const quarters = await prisma.quarter.findMany({
       include: {
         Subject: false
@@ -43,6 +44,7 @@ export const quartersRouter = t.router({
   }),
 
   getLatestQuarter: t.procedure.query(async () => {
+    console.log("gettingLatestQuarter");
     const quarters = await prisma.quarter.findMany({
       orderBy: {
         year: "desc"
