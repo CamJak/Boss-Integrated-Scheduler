@@ -19,18 +19,17 @@
 </script>
 
 <div class="sm:hidden dark:text-white">
-	This is the navbar for mobile. It should have a drawer/dropdown type icon
-</div>
-<div class="hidden dark:text-white sm:flex flex-row px-2 {$page.route.id === '/' ? 'py-2' : ''} items-center justify-between">
 	<!-- Mobile -->
+</div>
+<div class="dark:bg-gray-700 hidden dark:text-white sm:flex flex-row px-2 {$page.route.id === '/' ? 'py-2' : ''} items-center justify-between">
 	<!-- LEFT BIT -->
   {#if $page.route.id === "/"}
-    <select class="rounded-lg dark:bg-gray-700 px-2 py-1" placeholder="Quarter">
+    <select class="cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-800 rounded-lg dark:bg-gray-700 px-2 py-1" placeholder="Quarter">
       {#each quarters as q}
-        {#if q.year === $quarter.year && q.season === $quarter.season}
-          <option selected={true} value={q}>{q.season} {q.year}</option>
+        {#if q.year === $quarter?.year && q.season === $quarter.season}
+          <option class="cursor-pointer" selected={true} value={q}>{q.season} {q.year}</option>
         {:else}
-          <option on:click={() => quarter.set(q)} value={q}>{q.season} {q.year}</option>
+          <option class="cursor-pointer" on:click={() => quarter.set(q)} value={q}>{q.season} {q.year}</option>
         {/if}
         
       {/each}
@@ -50,20 +49,20 @@
 	<div class="hidden md:flex flex-row space-x-6">
 		<!-- if this section selected, hide the buttons and show the select for term -->
 		{#if $page.route.id?.startsWith('/calendar')}
-      <select class="rounded-lg dark:bg-gray-700 px-2 py-1" placeholder="Quarter">
+      <select class="cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-800 rounded-lg dark:bg-gray-700 px-2 py-1" placeholder="Quarter">
         {#each quarters as q}
-          {#if q.year === $quarter.year && q.season === $quarter.season}
-            <option selected={true} value={q}>{q.season} {q.year}</option>
+          {#if q.year === $quarter?.year && q.season === $quarter.season}
+            <option class="cursor-pointer" selected={true} value={q}>{q.season} {q.year}</option>
           {:else}
-            <option on:click={() => quarter.set(q)} value={q}>{q.season} {q.year}</option>
+            <option class="cursor-pointer" on:click={() => quarter.set(q)} value={q}>{q.season} {q.year}</option>
           {/if}
           
         {/each}
       </select>
     {:else}
-			<a href="/calendar?new=true&year={$quarter.year}&season={$quarter.season}" class="dark:text-white hover:cursor-pointer font-poppins">NEW</a>
+			<a href="/calendar?new=true&year={$quarter?.year}&season={$quarter?.season}" class="dark:text-white hover:cursor-pointer font-poppins">NEW</a>
 			{#if showRecentLink}
-				<a href="/calendar?year={$quarter.year}&season={$quarter.season}" class="dark:text-white hover:cursor-pointer font-poppins">RECENT</a>
+				<a href="/calendar?year={$quarter?.year}&season={$quarter?.season}" class="dark:text-white hover:cursor-pointer font-poppins">RECENT</a>
 			{/if}
 		{/if}
     <!-- <a href="/calendar?new=true&year={$quarter.year}&season={$quarter.season}" class="dark:text-white hover:cursor-pointer font-poppins">NEW</a> -->

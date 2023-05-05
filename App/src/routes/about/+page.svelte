@@ -8,7 +8,7 @@
 </svelte:head>
 
 <div class="inset-0 select-none">
-	<div class="dark:bg-black w-full flex flex-col items-center">
+	<div class="dark:bg-gray-800 w-full flex flex-col items-center">
 		<p class="dark:text-white text-xl font-poppins">
 			About us
 		</p>

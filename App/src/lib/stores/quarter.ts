@@ -6,23 +6,16 @@ import schedule from "./schedule";
 
 export type Season = "Spring" | "Summer" | "Fall" | "Winter";
 
-// let firstRun = true;
-
-let initialValue: QuarterStoreType;
-
 let fetched = browser ? window.localStorage.getItem('quarter') ?? null : null;
 
+const quarter = writable<QuarterStoreType | null>();
+
 if (fetched) {
-  initialValue = { year: Number(fetched.split(" ")[1]), season: fetched.split(" ")[0] as Season };
-} else {
-  let apiResult = await client.quarters.getLatestQuarter.query();
-  initialValue = { season: apiResult.season, year: apiResult.year };
+  quarter.set({ year: Number(fetched.split(" ")[1]), season: fetched.split(" ")[0] as Season });
 }
 
-const quarter = writable<QuarterStoreType>(initialValue);
-
 quarter.subscribe((value) => {
-  if (browser) {
+  if (browser && value) {
     window.localStorage.setItem('quarter', `${value.season} ${value.year}`);
     // if (firstRun) {
     //   window.localStorage.setItem('quarter', `${value.season} ${value.year}`);
