@@ -31,7 +31,6 @@ app.use("/trpc", createExpressMiddleware({ router: appRouter }), createContext);
 const port = env.PORT || 3000;
 
 app.get('/', function (req, res) {
-  console.log("Hit from: ", req.ip);
   return res.send('Hello from Express!');
 });
 
