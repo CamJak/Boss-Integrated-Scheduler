@@ -11,7 +11,7 @@
 </svelte:head>
 
 <div class="inset-0 select-none">
-	<div class="dark:bg-black w-full flex flex-col items-center">
+	<div class="dark:bg-gray-800 w-full flex flex-col items-center">
 		<div class="flex flex-col lg:flex-row items-center px-4">
 			<Hero />
 			<img
@@ -44,7 +44,8 @@
 					<div class="dark:text-white font-poppins">
 						Illustrate what students can produce when given a chance to improve Tech's online
 						infrastructure. Tech has a large amount of underutilized potential in the Computer
-						Science and Cyber Engineering Departments. This project could create opportunity.
+						Science and Cyber Engineering Departments. This project could create opportunity and
+						give students the change to get real experience in developing a production application.
 					</div>
 				</svelte:fragment>
 			</Card>

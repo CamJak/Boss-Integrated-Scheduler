@@ -23,7 +23,7 @@
 	// initialize array to store current sections
 	let sections: Section[] = [];
 
-  let firstRun = true;
+	let firstRun = true;
 
 	onMount(() => {
 		if (!$page.url.searchParams.has('new')) {
@@ -34,28 +34,32 @@
 		}
 	});
 
-  quarter.subscribe(async (value) => {
-    if (value.year !== prevQuarter.year || value.season !== prevQuarter.season && !firstRun) {
+	quarter.subscribe(async (value) => {
+		if (value) {
+			if (value.year !== prevQuarter.year || (value.season !== prevQuarter.season && !firstRun)) {
+				$page.url.searchParams.set('year', `${value.year}`);
+				$page.url.searchParams.set('season', value.season);
 
-      $page.url.searchParams.set('year', `${value.year}`);
-      $page.url.searchParams.set('season', value.season);
-      
-      goto(`/calendar?${$page.url.searchParams.toString()}`);
-      console.log("hitting")
+				goto(`/calendar?${$page.url.searchParams.toString()}`);
+				console.log('hitting');
 
-      prevQuarter = value;
+				prevQuarter = value;
 
-      subjects = await client.subjects.getSubjects.query({ year: value.year, season: value.season});
+				subjects = await client.subjects.getSubjects.query({
+					year: value.year,
+					season: value.season
+				});
 
-      selectedSubject = { subjectId: '', name: '', quarterId: 0 };
+				selectedSubject = { subjectId: '', name: '', quarterId: 0 };
 
-      currSubject = selectedSubject;
-      // clears course selections
-      currCourse = { courseId: '', name: '', subjectId: '' };
-      selectedCourse = { courseId: '', name: '', subjectId: '' };
-      clearCalendar();
-    } else firstRun = false;
-  });
+				currSubject = selectedSubject;
+				// clears course selections
+				currCourse = { courseId: '', name: '', subjectId: '' };
+				selectedCourse = { courseId: '', name: '', subjectId: '' };
+				clearCalendar();
+			} else firstRun = false;
+		}
+	});
 
 	// function to query API for courses
 	async function getCourses(s: Subject) {
@@ -284,22 +288,21 @@
 </svelte:head>
 
 <div class="flex flex-col items-center">
-	<div class="h-6">
-	</div>
+	<div class="h-6" />
 </div>
 
-<div class="px-20 dark:text-white flex flex-row gap-6">
+<div class="px-2 lg:px-20 dark:text-white flex flex-row gap-6">
 	<!-- Left side section for 'section' selection (BOSS integration happens here) -->
-	<div class="border-2 border-slate-400 rounded-lg space-y-2 basis-1/6 flex flex-col bg-gray-800">
+	<div class="border-2 border-slate-400 rounded-lg space-y-2 basis-1/6 flex flex-col dark:bg-gray-800 px-2 py-2">
 		<!-- Subject selection -->
 		<select
 			bind:value={selectedSubject}
 			on:change={() => selectSubject()}
 			name="subject"
 			id="subject"
-			class="w-full text-black"
+			class="w-full text-black rounded-lg px-2 py-1 dark:bg-gray-700 dark:text-white hover:cursor-pointer"
 		>
-			<option value="" />
+			<option value="" class="hidden"/>
 			{#each subjects as subject}
 				<option value={subject}>{subject.name}</option>
 			{/each}
@@ -312,9 +315,9 @@
 					on:change={() => selectCourse()}
 					name="course"
 					id="course"
-					class="w-full text-black"
+					class="w-full text-black rounded-lg px-2 py-1 dark:bg-gray-700 dark:text-white hover:cursor-pointer"
 				>
-					<option value="" />
+					<option value="" class="hidden" />
 					{#each courses as course}
 						<option value={course}>{course.name}</option>
 					{/each}
@@ -322,12 +325,12 @@
 			{/if}
 		{/key}
 		<!-- Section selection -->
-		<div class="overflow-y-auto h-[675px]">
+		<div class="overflow-y-auto h-[675px] space-y-1">
 			{#key currCourse}
 				{#if currCourse.name != '' && currSubject.name != ''}
 					{#each sections as section}
 						<div
-							class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0 m-2 text-sm"
+							class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0 text-sm"
 						>
 							<h1>{section.sectionTitle}</h1>
 							{#if section.modality.includes('Online')}
@@ -350,7 +353,7 @@
 	</div>
 
 	<!-- Our nice calendar component -->
-	<div class="basis-5/6 bg-gray-800 rounded-lg border-2 border-slate-400">
+	<div class="basis-5/6 dark:bg-gray-800 rounded-lg border-2 border-slate-400">
 		<div>
 			<Calendar bind:this={ec} {plugins} {options} />
 		</div>
@@ -361,11 +364,11 @@
 	</div>
 
 	<!-- Right side section for showing 'sections' that are added to calendar -->
-	<div class="border-2 border-slate-400 rounded-lg basis-1/6 flex flex-col bg-gray-800">
+	<div class="border-2 border-slate-400 rounded-lg basis-1/6 flex flex-col dark:bg-gray-800 px-2 py-2">
 		<!-- Display added sections in a scrollable bar -->
-		<div class="overflow-y-auto h-[700px]">
+		<div class="overflow-y-auto h-[700px] space-y-1">
 			{#each addedSections as section}
-				<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0 m-2">
+				<div class="border-2 border-slate-400 rounded-lg p-2 bg-blue-400 group relative z-0">
 					<h1>{section.sectionTitle}</h1>
 					<h2>{section.callNumber}</h2>
 					<button

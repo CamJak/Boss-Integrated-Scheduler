@@ -14,7 +14,7 @@
   }
 </script>
 
-<div class="min-h-screen bg-white dark:bg-gray-700">
+<div class="min-h-screen bg-white dark:bg-gray-800">
 	<Nav {quarters} />
 
 	<slot />
