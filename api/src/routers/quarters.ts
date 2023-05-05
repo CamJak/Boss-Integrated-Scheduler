@@ -33,6 +33,12 @@ export const quartersRouter = t.router({
       resultQuarters.push(q);
     }
 
+    // resultQuarters.sort((a, b) => (a.year >))
+
+    resultQuarters.sort((a, b) => (a.year < b.year) ? 1 : (a.year === b.year) ? ((seasonValue(a.season) < seasonValue(b.season)) ? 1 : -1) : -1);
+
+    // resultQuarters.sort((a, b) => (seasonValue(a.season) > seasonValue(b.season)) ? 1 : -1);
+
     return resultQuarters;
   }),
 
