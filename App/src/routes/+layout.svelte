@@ -5,7 +5,13 @@
 	import type { LayoutServerData } from './$types';
 
 	export let data: LayoutServerData;
-	const { quarters } = data;
+	const { quarters, latestQuarter } = data;
+
+  // initialize the value for the quarterStore
+  if ($quarter == null) {
+    quarter.set(latestQuarter);
+    console.log($quarter);
+  }
 </script>
 
 <div class="min-h-screen bg-white dark:bg-gray-700">

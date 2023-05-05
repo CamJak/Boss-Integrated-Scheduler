@@ -7,5 +7,6 @@ export const load = (async () => {
 
   return {
     quarters: z.array(quarterStoreTypeSchema).parse(await client.quarters.getQuarters.query()),
+    latestQuarter: await client.quarters.getLatestQuarter.query()
   };
 }) satisfies LayoutServerLoad;
