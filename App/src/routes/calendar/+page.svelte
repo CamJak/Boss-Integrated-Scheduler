@@ -14,6 +14,7 @@
 	import quarter from '$lib/stores/quarter';
 	import type { PageServerData } from './$types';
 	import { goto } from '$app/navigation';
+	import { ExportToCsv } from 'ts-export-to-csv';
 
 	// load initial API data
 	export let data: PageServerData;
@@ -107,7 +108,21 @@
 		})
 	};
 
-	// TODO: Replace with actual data from API
+	// initialize export to csv object
+	const optionsCSV = { 
+		fieldSeparator: ',',
+		quoteStrings: '"',
+		decimalSeparator: '.',
+		showLabels: true, 
+		showTitle: true,
+		title: 'Schedule',
+		useTextFile: false,
+		useBom: true,
+		useKeysAsHeaders: true,
+		// headers: ['Column 1', 'Column 2', etc...], <-- Won't work with useKeysAsHeaders present!
+		// additionalHeaders: [{columns: ["HeaderRow1Column1", "HeaderRow1Column2"]}, {columns: ["HeaderRow2Column1","HeaderRow2Column2"]}]
+	};
+	const csvExporter = new ExportToCsv(optionsCSV);
 
 	// variables to bind to select elements
 	let selectedSubject: Subject;
@@ -270,6 +285,12 @@
 		importString = callNumbersString;
 	}
 
+	// function to export calendar to csv
+	function exportCalendarCSV() {
+		// Convert the array of objects to CSV and download it
+		csvExporter.generateCsv(addedSections);
+	}
+
 	// function to import calendar from call numbers
 	async function importCalendar() {
 		// split import string into array of call numbers
@@ -363,6 +384,7 @@
 		<button on:click={exportCalendar} class="rounded-full bg-blue-400 p-2">Export Calendar</button>
 		<button on:click={importCalendar} class="rounded-full bg-blue-400 p-2">Import Calendar</button>
 		<input type="text" bind:value={importString} class="text-black" placeholder="10001,10054,..." />
+		<button on:click={exportCalendarCSV} class="rounded-full bg-blue-400 p-2">Download CSV</button>
 	</div>
 
 	<!-- Right side section for showing 'sections' that are added to calendar -->

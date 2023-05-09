@@ -36,6 +36,7 @@
 	"type": "module",
 	"dependencies": {
 		"@trpc/client": "10.11.1",
+		"ts-export-to-csv": "^0.3.3",
 		"zod": "^3.21.4"
 	}
 }
