@@ -11,7 +11,7 @@ export const quartersRouter = t.router({
         Subject: false
       },
       orderBy: {
-        dateUpdated: "asc"
+        dateUpdated: "desc"
       }
     });
 
