@@ -62,7 +62,7 @@ export const quartersRouter = t.router({
 
     let latestQuarter: Quarter = filteredQuarters[0];
     for (let q of filteredQuarters) {
-      if (seasonValue(q.season) > seasonValue(latestQuarter.season)) latestQuarter = q;
+      if (seasonValue(q.season) >= seasonValue(latestQuarter.season) && q.dateUpdated > latestQuarter.dateUpdated) latestQuarter = q;
     }
 
     return latestQuarter;
