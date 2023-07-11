@@ -11,9 +11,10 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import schedule from '$lib/stores/schedule';
-	import quarter from '$lib/stores/quarter';
+	import quarter, { type Season } from '$lib/stores/quarter';
 	import type { PageServerData } from './$types';
 	import { goto } from '$app/navigation';
+	import { browser } from '$app/environment';
 
 	// load initial API data
 	export let data: PageServerData;
@@ -35,19 +36,18 @@
 	});
 
 	let quarterSubscription = quarter.subscribe(async (value) => {
-		if (value) {
-			if (value.year !== prevQuarter.year || (value.season !== prevQuarter.season && !firstRun)) {
-				$page.url.searchParams.set('year', `${value.year}`);
-				$page.url.searchParams.set('season', value.season);
+		if (value && prevQuarter && browser) {
+			if (value != prevQuarter) {
+				$page.url.searchParams.set('year', value.split(" ")[1]);
+				$page.url.searchParams.set('season', value.split(" ")[0]);
 
 				goto(`/calendar?${$page.url.searchParams.toString()}`);
-				console.log('hitting');
 
 				prevQuarter = value;
 
 				subjects = await client.subjects.getSubjects.query({
-					year: value.year,
-					season: value.season
+					year: Number(value.split(" ")[1]),
+					season: value.split(" ")[0] as Season
 				});
 
 				selectedSubject = { subjectId: '', name: '', quarterId: 0 };

@@ -9,8 +9,7 @@
 
   // initialize the value for the quarterStore
   if ($quarter == null) {
-    quarter.set(latestQuarter);
-    console.log($quarter);
+    quarter.set(`${latestQuarter.season} ${latestQuarter.year}`);
   }
 </script>
 

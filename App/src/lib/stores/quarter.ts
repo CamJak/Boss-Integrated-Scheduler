@@ -8,25 +8,21 @@ export type Season = "Spring" | "Summer" | "Fall" | "Winter";
 
 let fetched = browser ? window.localStorage.getItem('quarter') ?? null : null;
 
-const quarter = writable<QuarterStoreType | null>();
+const quarter = writable<string>();
 
 if (fetched) {
-  quarter.set({ year: Number(fetched.split(" ")[1]), season: fetched.split(" ")[0] as Season });
+  quarter.set(fetched);
 }
 
 quarter.subscribe((value) => {
   if (browser && value) {
-    window.localStorage.setItem('quarter', `${value.season} ${value.year}`);
-    // if (firstRun) {
-    //   window.localStorage.setItem('quarter', `${value.season} ${value.year}`);
-    // } else {
-    //   if (value.year !== initialValue.year || value.season !== initialValue.season) {
-    //     window.localStorage.setItem('quarter', `${value.season} ${value.year}`);
-    //     schedule.set('[]');
-    //   }
-    // }
+    window.localStorage.setItem('quarter', value);
   }
 })
+
+export function makeQuarter(q: string): QuarterStoreType {
+  return { year: Number(q.split(" ")[1]), season: q.split(" ")[0] as Season };
+}
 
 export default quarter;
 

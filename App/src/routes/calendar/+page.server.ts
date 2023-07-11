@@ -16,7 +16,7 @@ export const load: PageServerLoad = async ({ url }) => {
     season = latest.season;
   }
 
-  const initialQuarter: QuarterStoreType = { year, season };
+  const initialQuarter: string = `${season} ${year}`;
 
 	return {
 		subjects: await client.subjects.getSubjects.query({ year, season }),
